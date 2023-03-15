@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}  
+
+.produkt {
+  width: 100%;
+  display: flex; 
+} 
+
+.scroll {
+  overflow-y: scroll; 
+} 
+
+
+

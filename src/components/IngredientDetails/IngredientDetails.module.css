@@ -1,0 +1,25 @@
+.image_container {
+  width: 520px;
+  height: 240px;
+}
+
+.description {
+  text-align: center;
+}
+
+.nutrition {
+  display: flex;
+  flex-direction: row;
+  width: 520px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.nutrition_elements {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  width: 115px;
+}
+

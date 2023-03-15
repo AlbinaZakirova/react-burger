@@ -1,0 +1,42 @@
+.section {
+  width: 600px;
+  margin: 0;
+}
+
+.no_buns_ingredients {
+  overflow-y: scroll;
+  height: 380px; 
+  margin-left: 16px;
+  
+}
+
+.counter_final {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 16px;
+  margin-top: 40px;
+}
+
+.currency_icon {
+  margin-right: 10px;
+}
+
+.sum_and_icon_block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  
+}
+
+.buns {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  margin-bottom: 16px;
+  padding-left: 42px;
+}
+
+
