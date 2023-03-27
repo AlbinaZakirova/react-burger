@@ -5,14 +5,16 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
 import ProduktCategory from '../ProduktCategory/ProduktCategory';
 import ingredientPropTypes from '../../utils/prop-types';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
   
-  const [current, setCurrent] = useState('buns')
+  const [current, setCurrent] = useState('buns');
+  const { data: ingredients, error, isLoading } = useSelector(state => state.ingredientsStore);
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'),[ingredients]) ;
   const main = useMemo(() => ingredients.filter(item => item.type === 'main'),[ingredients]) ;
   const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'),[ingredients]) ;
-
+  
   
   
   function handleClick(tab) {
@@ -22,6 +24,8 @@ const BurgerIngredients = ({ingredients}) => {
     if (title) title.scrollIntoView({ behavior: "smooth" })
   }
   
+  if (isLoading) return <div>Загрузка...</div>
+
   return (
     <section className={style.menu}>
       <div className={style.produkt}>
@@ -57,8 +61,6 @@ const BurgerIngredients = ({ingredients}) => {
   )
 } 
 
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-}
+
 
 export default BurgerIngredients;

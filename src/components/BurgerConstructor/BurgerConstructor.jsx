@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -10,10 +11,10 @@ import Modal from '../Modal/Modal';
 
 
 
-const BurgerConstructor = ({constructorIngredients}) => {
+const BurgerConstructor = () => {
 
-  const buns = useMemo(() => constructorIngredients.find(data => data.type === 'bun'),[constructorIngredients]) ;
-  const nobuns = useMemo(() =>  constructorIngredients.filter(data => data.type !== 'bun'),[constructorIngredients]) ;
+  const { bun, ingredients } = useSelector(state => state.constructorStore);
+  
 
   const [orderWindow, setOrderWindow] = useState(null);
   const closeModalWindow = () => {
@@ -23,31 +24,31 @@ const BurgerConstructor = ({constructorIngredients}) => {
     <section className={classnames(style.section, 'mt-25')}>
       <div className={style.buns}>
       <ConstructorElement 
-        {...buns}
+        {...bun}
         type='top'
-        thumbnail={buns?.image}
-        key={buns?._id} 
-        text={`${buns?.name} (верх)`}
+        thumbnail={bun?.image}
+        key={bun?.uuid} 
+        text={`${bun?.name} (верх)`}
         isLocked={true}
         
       />
       </div>
       <div className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
-        {nobuns.map(data => 
-          <div className={(style.element_item, 'mt-4', 'mb-4')} key ={data._id}>
+        {ingredients.map(data => 
+          <div className={(style.element_item, 'mt-4', 'mb-4')} key ={data.uuid}>
             <DragIcon type="primary" />  
-            <ConstructorElement thumbnail={data.image} key={data._id} text={data.name} {...data}/>
+            <ConstructorElement thumbnail={data.image} text={data.name} {...data}/>
           </div>
         )}
       </div>
 
       <div className={style.buns}>
       <ConstructorElement
-        {...buns} 
+        {...bun} 
         type='bottom'
-        thumbnail={buns?.image}
-        key={buns?._id}
-        text={`${buns?.name} (низ)`}
+        thumbnail={bun?.image}
+        key={bun?.uuid}
+        text={`${bun?.name} (низ)`}
         isLocked={true}
       />
       </div>
@@ -72,8 +73,5 @@ const BurgerConstructor = ({constructorIngredients}) => {
     )
 }
 
-BurgerConstructor.propTypes = {
-  constructorIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-}
 
 export default BurgerConstructor;

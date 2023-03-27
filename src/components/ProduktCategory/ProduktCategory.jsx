@@ -6,15 +6,29 @@ import style from './ProduktCategory.module.css';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ingredientPropTypes from '../../utils/prop-types';
+import { addConstructor } from '../../services/reducers/constructor';
+import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+
+
 
 const ProduktCategory = ({ title, id, ingredients}) => {
+  const dispatch = useDispatch();
   const [ingredientModal, setIngredientModal] = useState(null)
   const closeModalIngredient = () => {setIngredientModal (null)}
   return (
     <>
       <h2 className='text text_type_main-medium' id={id}>{title}</h2>
       <div className={classnames(style.list, 'mb-10 mt-6')}>
-        {ingredients?.map(data => <BurgerIngredient key ={data._id} {...data} count={1} onClick={() => setIngredientModal(data)}/>)}
+        {ingredients?.map(data => 
+        <BurgerIngredient 
+          key ={data._id} 
+          {...data} 
+          count={1} 
+          onClick={() => {
+            dispatch(addConstructor(data));
+            setIngredientModal(data);
+        }}
+        />)}
       </div>
       {ingredientModal && <Modal title="Детали игредиента" onClose={closeModalIngredient}><IngredientDetails data={ingredientModal} /></Modal>}
     </>

@@ -6,24 +6,24 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import style from './App.module.css';
+import { fetchIngredients } from '../../services/reducers/ingredients';
+import { useDispatch } from 'react-redux/es/exports';
 
 
 export const App = () => {
-    const [ingredients, setIngredients] = useState([]);
+
+    
+    const dispatch = useDispatch();
     useEffect(() => {
-      getIngredients().then(data => {
-        setIngredients(data)
-      }).catch(err => {
-        console.error(err);
-      })
-    }, [])
+    dispatch(fetchIngredients());
+    }, [dispatch]);
     return (
         <div className={style.app}>
             <AppHeader />
             <h1 className={classnames(style.app__title, 'text text_type_main-large mt-10 mb-5')}>Соберите бургер</h1>
             <main className={style.main}>
-                <BurgerIngredients ingredients={ingredients} />
-                <BurgerConstructor constructorIngredients={ingredients} />
+                <BurgerIngredients />
+                <BurgerConstructor />
             </main>
         </div>
     )
