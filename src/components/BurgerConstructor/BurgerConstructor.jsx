@@ -1,40 +1,40 @@
 import { useState, useMemo } from 'react';
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import style from './BurgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import ingredientPropTypes from '../../utils/prop-types';
+import Modal from '../Modal/Modal';
 
 
 
 
-export const BurgerConstructor = ({constructorIngredients}) => {
+const BurgerConstructor = ({constructorIngredients}) => {
 
   const buns = useMemo(() => constructorIngredients.find(data => data.type === 'bun'),[constructorIngredients]) ;
-  const bunsLast = useMemo(() => constructorIngredients.findLast(data => data.type === 'bun'),[constructorIngredients]) ;
   const nobuns = useMemo(() =>  constructorIngredients.filter(data => data.type !== 'bun'),[constructorIngredients]) ;
 
-  
-  const [orderWindow, setOrderWindow] = useState(false);
-  const closeModalWindow = () => {setOrderWindow(null)};
-
+  const [orderWindow, setOrderWindow] = useState(null);
+  const closeModalWindow = () => {
+    setOrderWindow(null);
+  };
   return (
     <section className={classnames(style.section, 'mt-25')}>
       <div className={style.buns}>
-      <ConstructorElement
+      <ConstructorElement 
         {...buns}
         type='top'
         thumbnail={buns?.image}
-        key={buns?._id}
-        text={buns?.name}
+        key={buns?._id} 
+        text={`${buns?.name} (верх)`}
         isLocked={true}
         
       />
       </div>
-      
-    
       <div className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
         {nobuns.map(data => 
-          <div className={(style.element_item, 'mt-4', 'mb-4')}>
+          <div className={(style.element_item, 'mt-4', 'mb-4')} key ={data._id}>
             <DragIcon type="primary" />  
             <ConstructorElement thumbnail={data.image} key={data._id} text={data.name} {...data}/>
           </div>
@@ -43,15 +43,15 @@ export const BurgerConstructor = ({constructorIngredients}) => {
 
       <div className={style.buns}>
       <ConstructorElement
-        {...bunsLast} 
+        {...buns} 
         type='bottom'
-        thumbnail={bunsLast?.image}
-        key={bunsLast?._id}
-        text={bunsLast?.name}
+        thumbnail={buns?.image}
+        key={buns?._id}
+        text={`${buns?.name} (низ)`}
         isLocked={true}
       />
       </div>
-      
+
 
       <div className={style.counter_final}>
         <div className={style.sum_and_icon_block}>
@@ -61,9 +61,19 @@ export const BurgerConstructor = ({constructorIngredients}) => {
         <Button htmlType="button" type="primary" size="large" onClick={() => setOrderWindow(true)}>
           Оформить заказ
         </Button>
-        {orderWindow && <OrderDetails onClose={closeModalWindow} /> }
+        {orderWindow && (
+        <Modal onClose={closeModalWindow}>
+          <OrderDetails data={orderWindow} />
+        </Modal>
+      )}
       </div>
 
     </section>
     )
 }
+
+BurgerConstructor.propTypes = {
+  constructorIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+}
+
+export default BurgerConstructor;

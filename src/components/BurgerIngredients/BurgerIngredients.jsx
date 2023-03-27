@@ -3,10 +3,10 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
-import { ProduktCategory } from '../ProduktCategory/ProduktCategory';
+import ProduktCategory from '../ProduktCategory/ProduktCategory';
 import ingredientPropTypes from '../../utils/prop-types';
 
-export const BurgerIngredients = ( {ingredients} ) => {
+const BurgerIngredients = ({ingredients}) => {
   
   const [current, setCurrent] = useState('buns')
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'),[ingredients]) ;
@@ -61,3 +61,4 @@ BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
+export default BurgerIngredients;
