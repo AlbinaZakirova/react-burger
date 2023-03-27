@@ -3,11 +3,11 @@ import classnames from 'classnames';
 import { BurgerIngredient } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import style from './ProduktCategory.module.css';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ingredientPropTypes from '../../utils/prop-types';
 
-export const ProduktCategory = ({ title, id, ingredients}) => {
+const ProduktCategory = ({ title, id, ingredients}) => {
   const [ingredientModal, setIngredientModal] = useState(null)
   const closeModalIngredient = () => {setIngredientModal (null)}
   return (
@@ -26,4 +26,6 @@ ProduktCategory.propTypes = {
   id: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
+
+export default ProduktCategory;
 

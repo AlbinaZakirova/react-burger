@@ -1,9 +1,12 @@
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import ingredientPropTypes from '../../utils/prop-types';
 import style from './IngredientDetails.module.css';
 
-export const IngredientDetails = ({data}) => {
+const IngredientDetails = ({data}) => {
   return (
   <section>
+    <h2 className={classnames(style.ingedientDetails__title, "text text_type_main-large")}>Детали ингредиента</h2>
     <div className={classnames(style.image_container, 'mr-25', 'ml-25')}>
       <img className={style.image} src={data.image_large} alt={data.alt}></img>
     </div>
@@ -29,3 +32,9 @@ export const IngredientDetails = ({data}) => {
   </section>
   )
 }
+
+IngredientDetails.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+}
+
+export default IngredientDetails;
