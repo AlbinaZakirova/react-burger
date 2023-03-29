@@ -7,10 +7,11 @@ import style from './BurgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ingredientPropTypes from '../../utils/prop-types';
 import Modal from '../Modal/Modal';
-import {removeConstructor} from "../../services/reducers/constructor";
+import {addConstructor, removeConstructor} from "../../services/reducers/constructor";
 import {useDispatch} from "react-redux/es/hooks/useDispatch";
 import { makeOrder } from '../../utils/api';
 import { sendOrder } from '../../services/reducers/order';
+import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 
 
 
@@ -29,7 +30,7 @@ const BurgerConstructor = () => {
       ? ingredients.reduce((acc, ingredient) => acc += ingredient.price, 0)
       : 0
     return priceBun + ingredientsSum
-  }, [bun, ingredients.length])
+  }, [bun?.price, ingredients.length])
 
   const closeModalWindow = () => {
     setOrderWindow(null);
@@ -43,8 +44,18 @@ const BurgerConstructor = () => {
     dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))
   }
 
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(itemId, monitor) {
+        dispatch(addConstructor(itemId));
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver()
+    })
+})
+
   return (
-    <section className={classnames(style.section, 'mt-25')}>
+    <section className={classnames(style.section, 'mt-25')} ref={dropTarget}>
       <div className={style.buns}>
       <ConstructorElement 
         {...bun}
