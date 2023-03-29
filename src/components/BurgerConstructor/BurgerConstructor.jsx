@@ -7,19 +7,42 @@ import style from './BurgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ingredientPropTypes from '../../utils/prop-types';
 import Modal from '../Modal/Modal';
+import {removeConstructor} from "../../services/reducers/constructor";
+import {useDispatch} from "react-redux/es/hooks/useDispatch";
+import { makeOrder } from '../../utils/api';
+import { sendOrder } from '../../services/reducers/order';
 
 
 
 
 const BurgerConstructor = () => {
+  const dispatch = useDispatch();
 
   const { bun, ingredients } = useSelector(state => state.constructorStore);
   
-
   const [orderWindow, setOrderWindow] = useState(null);
+  const {orderData} = useSelector(state => state.orderStore)
+  
+  const sum = useMemo(() => {
+    const priceBun = bun?.price * 2 || 0
+    const ingredientsSum = ingredients.length > 0
+      ? ingredients.reduce((acc, ingredient) => acc += ingredient.price, 0)
+      : 0
+    return priceBun + ingredientsSum
+  }, [bun, ingredients.length])
+
   const closeModalWindow = () => {
     setOrderWindow(null);
   };
+
+  const removeIngredientBurger = id =>
+    dispatch(removeConstructor(id))
+ 
+  const makeOrderHandler = () => {
+    setOrderWindow(true)
+    dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))
+  }
+
   return (
     <section className={classnames(style.section, 'mt-25')}>
       <div className={style.buns}>
@@ -27,8 +50,8 @@ const BurgerConstructor = () => {
         {...bun}
         type='top'
         thumbnail={bun?.image}
-        key={bun?.uuid} 
-        text={`${bun?.name} (верх)`}
+        text={`${bun ? bun.name : ''} (верх)`}
+        price={bun?.price}
         isLocked={true}
         
       />
@@ -37,7 +60,12 @@ const BurgerConstructor = () => {
         {ingredients.map(data => 
           <div className={(style.element_item, 'mt-4', 'mb-4')} key ={data.uuid}>
             <DragIcon type="primary" />  
-            <ConstructorElement thumbnail={data.image} text={data.name} {...data}/>
+            <ConstructorElement 
+            thumbnail={data.image} 
+            text={data.name} 
+            price={data.price}
+            handleClose={() => removeIngredientBurger(data.uuid)}
+            />
           </div>
         )}
       </div>
@@ -47,8 +75,8 @@ const BurgerConstructor = () => {
         {...bun} 
         type='bottom'
         thumbnail={bun?.image}
-        key={bun?.uuid}
-        text={`${bun?.name} (низ)`}
+        text={`${bun ? bun.name : ''} (верх)`}
+        price={bun?.price}
         isLocked={true}
       />
       </div>
@@ -56,15 +84,15 @@ const BurgerConstructor = () => {
 
       <div className={style.counter_final}>
         <div className={style.sum_and_icon_block}>
-          <p className="text text_type_digits-medium mr-2">000</p>
+          <p className="text text_type_digits-medium mr-2">{sum}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={() => setOrderWindow(true)}>
+        <Button htmlType="button" type="primary" size="large" onClick={makeOrderHandler}>
           Оформить заказ
         </Button>
         {orderWindow && (
         <Modal onClose={closeModalWindow}>
-          <OrderDetails data={orderWindow} />
+          <OrderDetails number={orderData?.order?.number}/>
         </Modal>
       )}
       </div>

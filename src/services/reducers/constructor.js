@@ -18,12 +18,14 @@ export const constructorSlice = createSlice({
         else {
           state.ingredients.push({...action.payload, uuid: uuidv4()})
       }
-      
+    }, 
+    removeConstructor: (state, action) => {
+      state.ingredients = state.ingredients.filter(ingredient => ingredient.uuid !== action.payload)
     }
   }
 })
 
-export const { addConstructor } = constructorSlice.actions;
+export const { addConstructor, removeConstructor } = constructorSlice.actions;
 export default constructorSlice.reducer;
 
 

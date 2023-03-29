@@ -8,13 +8,22 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ingredientPropTypes from '../../utils/prop-types';
 import { addConstructor } from '../../services/reducers/constructor';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { useSelector } from 'react-redux';
+import { removeCurrentIngredient, setCurrentIngredient } from '../../services/reducers/currentIngredient';
 
 
 
 const ProduktCategory = ({ title, id, ingredients}) => {
   const dispatch = useDispatch();
-  const [ingredientModal, setIngredientModal] = useState(null)
-  const closeModalIngredient = () => {setIngredientModal (null)}
+  const {currentIngredient} = useSelector(state => state.currentIngredientStore);
+  const setIngredientInModalHandler = ingredient =>
+    dispatch(setCurrentIngredient(ingredient))
+  
+  const removeCurrentIngredientInModalHandler = () =>
+    dispatch(removeCurrentIngredient())
+
+  // const [ingredientModal, setIngredientModal] = useState(null)
+  // const closeModalIngredient = () => {setIngredientModal (null)}
   return (
     <>
       <h2 className='text text_type_main-medium' id={id}>{title}</h2>
@@ -26,11 +35,11 @@ const ProduktCategory = ({ title, id, ingredients}) => {
           count={1} 
           onClick={() => {
             dispatch(addConstructor(data));
-            setIngredientModal(data);
+            setIngredientInModalHandler(data);
         }}
         />)}
       </div>
-      {ingredientModal && <Modal title="Детали игредиента" onClose={closeModalIngredient}><IngredientDetails data={ingredientModal} /></Modal>}
+      {currentIngredient && <Modal title="Детали игредиента" onClose={removeCurrentIngredientInModalHandler}><IngredientDetails data={currentIngredient} /></Modal>}
     </>
   )
 }
