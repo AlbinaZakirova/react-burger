@@ -7,7 +7,7 @@
   overflow-y: scroll;
   height: 380px; 
   margin-left: 16px;
-  
+  cursor: pointer;
 }
 
 .counter_final {

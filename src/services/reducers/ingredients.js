@@ -43,7 +43,6 @@ export const ingredientSlice = createSlice({
         state.isLoading = false;
       })
   },
-  
 })
 
 export default ingredientSlice.reducer;

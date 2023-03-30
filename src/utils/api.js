@@ -17,13 +17,13 @@ export const getIngredients = async () =>
     })
 
 export const makeOrder = async ingredientIds =>
-await request('orders', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    ingredients: ingredientIds
+  await request('orders', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ingredients: ingredientIds
+    })
   })
-})
   .then(res => {
     if (res.success) {
       return res

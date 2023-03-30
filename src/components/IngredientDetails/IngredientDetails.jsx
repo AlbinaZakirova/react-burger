@@ -1,6 +1,5 @@
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import ingredientPropTypes from '../../utils/prop-types';
+import PropTypes from "prop-types";
 import style from './IngredientDetails.module.css';
 
 const IngredientDetails = ({data}) => {
@@ -33,8 +32,8 @@ const IngredientDetails = ({data}) => {
   )
 }
 
-// IngredientDetails.propTypes = {
-//   data: PropTypes.arrayOf(ingredientPropTypes).isRequired
-// }
+IngredientDetails.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
-export default IngredientDetails;
+export default IngredientDetails; 
