@@ -8,7 +8,7 @@ import style from './BurgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
-import {addConstructor} from "../../services/reducers/constructor";
+import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
 
 
@@ -36,6 +36,7 @@ const BurgerConstructor = () => {
   const makeOrderHandler = () => {
     setOrderWindow(true)
     dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))
+    dispatch(clearConstructor())
   }
 
   const [{isHover}, dropTarget] = useDrop({

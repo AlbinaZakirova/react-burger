@@ -1,3 +1,4 @@
+import {forwardRef} from "react";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import classnames from 'classnames';
@@ -9,7 +10,7 @@ import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import { removeCurrentIngredient, setCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ingredientPropType from '../../utils/prop-types';
 
-const ProduktCategory = ({ title, id, ingredients}) => {
+const ProduktCategory = forwardRef(({ title, id, ingredients}, ref) => {
   const dispatch = useDispatch();
   const {currentIngredient} = useSelector(state => state.currentIngredientStore);
   const setIngredientInModalHandler = ingredient =>
@@ -20,7 +21,7 @@ const ProduktCategory = ({ title, id, ingredients}) => {
 
   return (
     <>
-      <h2 className='text text_type_main-medium' id={id}>{title}</h2>
+      <h2 className='text text_type_main-medium' id={id} ref={ref}>{title}</h2>
       <div className={classnames(style.list, 'mb-10 mt-6')}>
         {ingredients?.map(data =>
           <BurgerIngredient
@@ -35,7 +36,7 @@ const ProduktCategory = ({ title, id, ingredients}) => {
       {currentIngredient &&<Modal title="Детали игредиента" onClose={removeCurrentIngredientInModalHandler}><IngredientDetails data={currentIngredient}/></Modal>}
     </>
   )
-}
+})
 
 ProduktCategory.propTypes = {
   title: PropTypes.string.isRequired,

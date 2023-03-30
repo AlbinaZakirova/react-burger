@@ -21,7 +21,12 @@ export const constructorSlice = createSlice({
 
     removeConstructor: (state, action) => {
       state.ingredients = state.ingredients.filter(ingredient => ingredient.uuid !== action.payload)
-    }, 
+    },
+    
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    },
 
     moveElement: (state, action) => {
       let res = []
@@ -52,7 +57,7 @@ export const constructorSlice = createSlice({
   }
 })
 
-export const { addConstructor, removeConstructor, moveElement } = constructorSlice.actions;
+export const { addConstructor, removeConstructor, clearConstructor, moveElement } = constructorSlice.actions;
 export default constructorSlice.reducer;
 
 

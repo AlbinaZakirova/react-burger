@@ -1,5 +1,6 @@
-import { useState,useMemo } from 'react';
+import { useState,useMemo, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useInView } from 'react-intersection-observer';
 import classnames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
@@ -17,9 +18,23 @@ const BurgerIngredients = () => {
   function handleClick(tab) {
     setCurrent(tab);
     const title = document.getElementById(tab);
-    console.log(title);
     if (title) title.scrollIntoView({ behavior: "smooth" })
   }
+
+  const [refBuns, inViewBuns] = useInView();
+  const [refMain, inViewMain] = useInView();
+  const [refSauce, inViewSauce] = useInView();
+
+  useEffect(() => {
+    if (inViewBuns) {
+        setCurrent('buns')
+    } else if (inViewSauce) {
+        setCurrent('sauce')
+    } else if (inViewMain) {
+        setCurrent('main')
+    }
+
+  }, [inViewBuns, inViewSauce, inViewMain])
   
   if (isLoading) return <div>Загрузка...</div>
 
@@ -42,16 +57,19 @@ const BurgerIngredients = () => {
           title="Булки"
           id="buns"
           ingredients={buns}
+          ref={refBuns}
         />
         <ProduktCategory 
           title="Соусы"
           id="sauce"
           ingredients={sauce}
+          ref={refSauce}
         />
         <ProduktCategory 
           title="Начинки"
           id="main"
           ingredients={main}
+          ref={refMain}
         />
       </div>
     </section>
