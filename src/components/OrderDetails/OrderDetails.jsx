@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import PropTypes from "prop-types";
 import style from './OrderDetails.module.css';
 
 const OrderDetails = ({number}) => {
@@ -16,5 +17,9 @@ const OrderDetails = ({number}) => {
     </div>
   );
 };
+
+OrderDetails.propTypes = {
+  number: PropTypes.number
+}
 
 export default OrderDetails;
