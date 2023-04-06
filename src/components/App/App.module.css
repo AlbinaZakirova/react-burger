@@ -4,20 +4,9 @@
   height: 100vh;
 }
 
-.main {
-  display: flex;
-  width: 1280px;
-  gap: 40px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
 .title {
   font-style: 60px;
 }
 
-.app__title {
-  width: 1280px;
-  margin-right: auto;
-  margin-left: auto;
-}
+
+
