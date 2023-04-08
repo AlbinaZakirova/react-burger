@@ -31,6 +31,9 @@ const Login = ({ onLogin }) => {
   return (
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className="loginForm">
+        {/* <p className="login__error">
+          {message}
+        </p> */}
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Вход</p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <EmailInput
@@ -69,4 +72,4 @@ const Login = ({ onLogin }) => {
   )
 }
 
-export default Login;
+export default Login; 

@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import { ListIcon, BurgerIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"; 
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './AppHeader.module.css';
+import { Link } from 'react-router-dom';
 
 const AppHeader = () => {
   return (
@@ -23,7 +24,7 @@ const AppHeader = () => {
         <div className={classnames(style.header__column, style.header__profile)}>
           <a href="#" className={classnames(style.link, style.link_active)}>
             <ProfileIcon type="secondary" />
-            <span className='text text_type_main-default text_color_inactive ml-2'>Личный кабинет</span>
+            <Link to="/profile" className={classnames(style.header__link, 'text text_type_main-default text_color_inactive ml-2')}>Личный кабинет</Link>
           </a>
         </div>
       </nav>
