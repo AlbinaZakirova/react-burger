@@ -1,17 +1,24 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Login.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInUser } from '../../services/reducers/user';
 
-const Login = ({ onLogin }) => {
+
+const Login = () => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const {success} = useSelector(state => state.userStore);
 
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   })
-  // const [message, setMessage] = useState('');
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({
@@ -23,21 +30,22 @@ const Login = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!userData.email || !userData.password) {
-      return;
+      return null;
     }
-    onLogin(userData);
+    dispatch(signInUser(userData))
   }
+
+  useEffect(() => {
+    success && navigate('/')
+  }, [success])
 
   return (
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className="loginForm">
-        {/* <p className="login__error">
-          {message}
-        </p> */}
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Вход</p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <EmailInput
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             value={userData.email}
             name={'email'}
             isIcon={false}

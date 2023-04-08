@@ -24,14 +24,14 @@ export const App = () => {
     <Router>
       <div className={style.app}>
         <AppHeader />
-        <Routes>
-            <Route path="/" Component={MainPage} />
+          <Routes>
             <Route path="/login" Component={Login} />
             <Route path="/register" Component={Registration} />
             <Route path="/forgot-password" Component={ForgotPassword} />
             <Route path="/reset-password" Component={ResetPassword} />
             <Route path="/profile" Component={Profile} />
             {/* <Route path="/ingredients/:id" Component={IngredientsId} /> */}
+            <Route path="/" Component={MainPage} />
           </Routes>
       </div>
     </Router>
