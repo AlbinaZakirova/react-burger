@@ -44,8 +44,8 @@ const ResetPassword = ({value}) => {
         </div>
 
         <div className={style.login_signupContainer}>
-          <span className="text text_type_main-default text_color_inactive">Вспомнили пароль??</span>
-          <Link to="/register" className={classnames(style.login__link, "text text_type_main-default")}>Войти</Link>
+          <span className="text text_type_main-default text_color_inactive">Вспомнили пароль?</span>
+          <Link to="/login" className={classnames(style.login__link, "text text_type_main-default")}>Войти</Link>
         </div>
 
       </form>
