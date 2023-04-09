@@ -10,6 +10,7 @@ import Registration from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import IngredientsIdPage from '../../pages/IngredientsIdPage/IngredientsIdPage';
 
 
 export const App = () => {
@@ -30,7 +31,7 @@ export const App = () => {
             <Route path="/forgot-password" Component={ForgotPassword} />
             <Route path="/reset-password" Component={ResetPassword} />
             <Route path="/profile" Component={Profile} />
-            {/* <Route path="/ingredients/:id" Component={IngredientsId} /> */}
+            <Route path="/ingredients/:id" Component={IngredientsIdPage} />
             <Route path="/" Component={MainPage} />
           </Routes>
       </div>

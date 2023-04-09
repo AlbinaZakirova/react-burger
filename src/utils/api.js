@@ -44,7 +44,6 @@ export const resetPassword = async email =>
     })
   });
 
-
 export const recoveryPassword = async email =>   
   await request('password-reset/reset', {
     method: 'POST',
@@ -56,8 +55,6 @@ export const recoveryPassword = async email =>
     })
   });
 
-
-
 export const registrationUser = async (data) =>   //РЕГИСТРАЦИЯ
   await request ('auth/register', {
     method: "POST",
@@ -67,15 +64,27 @@ export const registrationUser = async (data) =>   //РЕГИСТРАЦИЯ
       body: JSON.stringify(data),
   })
   
-
-export const loginUser = async (data) =>   //РЕГИСТРАЦИЯ
+export const loginUser = async (data) =>   //ВХОД
   await request ('auth/login', {
-   method: "POST",
-   headers: {
-     "Content-Type": "application/json;charset=utf-8",
-   },
-     body: JSON.stringify(data),
- })
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+    body: JSON.stringify(data),
+})
+
+export const logoutUser = async (data) =>   //ВЫХОД
+  await request ('auth/logout', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+    body: JSON.stringify(data),
+})
+
+
+
+
  
 
 

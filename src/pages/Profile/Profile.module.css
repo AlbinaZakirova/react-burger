@@ -24,6 +24,15 @@
   width: 100%;
   height: 64px;
   margin: 0;
+  text-decoration: none;
+}
+
+.list__button {
+  text-align: start;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all .2s linear;
 }
 
 .loginForm {
