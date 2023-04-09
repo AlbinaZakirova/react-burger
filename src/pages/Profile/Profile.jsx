@@ -1,9 +1,10 @@
 import classnames from 'classnames';
 import style from './Profile.module.css';
-import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
 
 const Profile = ({value}) => {
+
   return (
     <div className={style.loginContainer}>
       <div className="mr-15">
@@ -15,6 +16,7 @@ const Profile = ({value}) => {
         <span className={classnames(style.list__span,'text text_type_main-default text_color_inactive')} >
           В этом разделе вы можете<br />изменить свои персональные данные
         </span>
+        
       </div>
       {/* <form onSubmit={onSubmit} className="loginForm"> */}
       <form className="loginForm">
@@ -48,6 +50,11 @@ const Profile = ({value}) => {
             name={'password'}
             icon="EditIcon"
           />
+        </div>
+        <div className={classnames (style.choice, 'mt-6')}>
+          <Button type="secondary" size="medium" htmlType="reset" extraClass="pr-7">Отмена</Button>
+          <Button type="primary" size="medium" htmlType="submit">Сохранить</Button>
+          <Button type="primary" size="medium" htmlType="submit" disabled>Сохранить</Button>
         </div>
       </form>
     </div>
