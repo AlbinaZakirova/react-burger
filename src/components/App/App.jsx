@@ -30,6 +30,7 @@ export const App = () => {
             <Route path="/register" Component={Registration} />
             <Route path="/forgot-password" Component={ForgotPassword} />
             <Route path="/reset-password" Component={ResetPassword} />
+            <Route path="/profile/orders" Component={Profile} />
             <Route path="/profile" Component={Profile} />
             <Route path="/ingredients/:id" Component={IngredientsIdPage} />
             <Route path="/" Component={MainPage} />

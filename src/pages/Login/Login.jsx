@@ -52,7 +52,7 @@ const Login = () => {
             extraClass="mb-2"
           />
           <PasswordInput
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             value={userData.password}
             name={'password'}
             extraClass="mb-2"

@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   const resetPasswordHandler = (e) => {
     e.preventDefault();
     resetPassword(email)
-      .then(() => navigate('/reset-password'))
+      .then((res) => res.success && navigate('/reset-password'))
       .catch(err => console.log(`Ошибка ${err}`))
   }
 

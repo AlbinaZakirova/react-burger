@@ -35,13 +35,6 @@
   transition: all .2s linear;
 }
 
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-
 .login_signupContainer {
   display: flex;
   justify-content: center;
@@ -57,3 +50,6 @@
   align-self: flex-end;
 }
 
+.active {
+  color: white;
+}

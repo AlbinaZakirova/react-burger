@@ -1,5 +1,7 @@
 // import { getCookie, setCookie } from './cookies';
 
+import { getItemByKey } from "./localStorage";
+
 
 const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
@@ -44,15 +46,15 @@ export const resetPassword = async email =>
     })
   });
 
-export const recoveryPassword = async email =>   
+export const recoveryPassword = async data =>   
   await request('password-reset/reset', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({
-      email
-    })
+    body: JSON.stringify(
+      data
+    )
   });
 
 export const registrationUser = async (data) =>   //РЕГИСТРАЦИЯ
@@ -73,29 +75,32 @@ export const loginUser = async (data) =>   //ВХОД
     body: JSON.stringify(data),
 })
 
-export const logoutUser = async (data) =>   //ВЫХОД
+export const updateToken = async(token) =>
+  await request('/auth/token', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  body: JSON.stringify(token),
+  })
+
+export const logoutUser = async (token) =>   //ВЫХОД
   await request ('auth/logout', {
   method: "POST",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
   },
-    body: JSON.stringify(data),
+    body: JSON.stringify(token),
 })
 
 
+export const getUser = async (method, userData) =>   //ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЯ
+  await request ('auth/user ', {
+    method: method,
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    }, 
+    body:JSON.stringify({authorization:getItemByKey('refreshToken'), ...userData}),
 
-
- 
-
-
-// export const getUser = () => {  //ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЯ
-//   return this.fetchWithRefresh(`${API_URL}/auth/user`, {
-//       headers: {
-//           authorization: getCookie("accessToken"),
-//       },
-//   }).then(data => {
-//       if (data?.success) return data;
-//       return Promise.reject(data)
-//   });
-// }
+  })
 
