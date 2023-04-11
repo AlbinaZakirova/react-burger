@@ -1,17 +1,33 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import classnames from "classnames";
 import style from "./ProfileHome.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useEffect } from 'react';
+import { updateUserData } from "../../../services/reducers/user";
 
 const ProfileHome = () => {
+
+  const dispatch = useDispatch();
+
   const {user} = useSelector(state => state.userStore)
+
+  const [isButtonsShow, setIsButtonsShow] = useState(false)
+
+  const changeTracking = () => {
+    const isChanged = user && Object.entries(user).every(field => userData[field[0]] === field[1])
+    setIsButtonsShow(!isChanged);
+  }
 
   const [userData, setUserData] = useState( {
     email: user?.email,
     name: user?.name,
     password: user?.password,
   })
+
+  useEffect(() => {
+    changeTracking()
+  }, [userData])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +37,17 @@ const ProfileHome = () => {
     }); 
   }
 
+  const saveHandler = (e) => {
+    e.preventDefault();
+    dispatch(updateUserData(userData));
+  }
+
+  const cancelHandler = () => {
+    setUserData({...user})
+  }
+
+
+
   return (
     <form className={style.loginForm}>
       <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -29,7 +56,8 @@ const ProfileHome = () => {
           placeholder={'Имя'}
           onChange={(e) => handleChange(e)}
           // icon={'CurrencyIcon'}
-          value={userData.name}
+          // value={userData.name}
+          value={userData?.name || ''}
           name={'name'}
           error={false}
           // ref={inputRef}
@@ -41,7 +69,7 @@ const ProfileHome = () => {
         />
         <EmailInput
           onChange={(e) => handleChange(e)}
-          value={userData.email}
+          value={userData?.email || ''}
           name={'email'}
           isIcon={false}
           extraClass="mb-6"
@@ -49,18 +77,21 @@ const ProfileHome = () => {
         />
         <PasswordInput
           onChange={(e) => handleChange(e)}
-          value={userData.password}
+          value={userData?.password || ''}
           name={'password'}
           icon="EditIcon"
         />
       </div>
       <div className='mt-6'>
-        <Button type="secondary" size="medium" htmlType="reset" extraClass="pr-7">Отмена</Button>
-        <Button type="primary" size="medium" htmlType="submit">Сохранить</Button>
-        <Button type="primary" size="medium" htmlType="submit" disabled>Сохранить</Button>
+        {isButtonsShow &&
+          <>
+            <Button type="secondary" size="medium" htmlType="reset" extraClass="pr-7" onClick={cancelHandler}>Отмена</Button>
+            <Button type="primary" size="medium" htmlType="submit" onClick={saveHandler}>Сохранить</Button>
+          </>
+        }
       </div>
     </form>
   )
 }
 
-export default ProfileHome
+export default ProfileHome;

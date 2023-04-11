@@ -45,3 +45,10 @@
 .header__link {
   text-decoration: none;
 } 
+
+.header__linkProfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+}

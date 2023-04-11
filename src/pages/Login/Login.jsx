@@ -12,7 +12,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const {success} = useSelector(state => state.userStore);
+  const {isLogin} = useSelector(state => state.userStore);
 
   const [userData, setUserData] = useState({
     email: '',
@@ -36,8 +36,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    success && navigate('/')
-  }, [success])
+    isLogin && navigate('/')
+  }, [isLogin])
 
   return (
     <div className={style.loginContainer}>

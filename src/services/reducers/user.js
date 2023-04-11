@@ -1,16 +1,19 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {loginUser, logoutUser, registrationUser, updateToken} from "../../utils/api";
-import {deleteItemByKey, setItemByKey } from "../../utils/localStorage";
+import {getUser, loginUser, logoutUser, registrationUser, updateToken, updateUser} from "../../utils/api";
+import {deleteItemByKey, getItemByKey, setItemByKey } from "../../utils/localStorage";
 
 
-const sliceName = 'user'
+const sliceName = 'user' 
 
 const initialState = {
   user: null,
   isLogin: null,
   isRegistred: null,
   isExited: null,
-  isTokenUpdated: null
+  isTokenUpdated: null,
+  isUserDataGot: null,
+  isUserDataUpdated: null
+  
 }
 
 export const registerUser = createAsyncThunk(
@@ -56,9 +59,9 @@ export const signInUser = createAsyncThunk(
 
 export const exitUser = createAsyncThunk(
   `${sliceName}/logoutUser`,
-  async (token, {rejectWithValue}) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const res = await logoutUser(token);
+      const res = await logoutUser(getItemByKey('refreshToken'));
       if (!res) {
         throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
       }
@@ -92,6 +95,42 @@ export const updateAccessToken = createAsyncThunk(
   }
 );
 
+export const getUserData = createAsyncThunk(
+  `${sliceName}/getUserData`,
+  async (_, {rejectWithValue}) => {
+    try {
+      const res = await getUser();
+      if (!res) {
+        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+      }
+      return res;
+    } catch (error) {
+      if (error.statusCode) {
+        return rejectWithValue(error);
+      }
+      return rejectWithValue({message: 'Ошибка на стороне сервера'})
+    }
+  }
+)
+
+export const updateUserData = createAsyncThunk(
+  `${sliceName}/updateUserData`,
+  async (userData, {rejectWithValue}) => {
+    try {
+      const res = await updateUser(userData);
+      if (!res) {
+        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+      }
+      return res;
+    } catch (error) {
+      if (error.statusCode) {
+        return rejectWithValue(error);
+      }
+      return rejectWithValue({message: 'Ошибка на стороне сервера'})
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: sliceName,
   initialState,
@@ -114,8 +153,17 @@ export const userSlice = createSlice({
         setItemByKey('accessToken', action.payload.accessToken)
         state.isTokenUpdated = action.payload.success;
       })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.user = {password: state.user.password, ...action.payload.user};
+        state.isUserDataGot = action.payload.success;
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.user = {password: state.user.password, ...action.payload.user};
+        state.isUserDataUpdated = action.payload.success;
+      })
   }
 })
 
 export default userSlice.reducer
 
+ 

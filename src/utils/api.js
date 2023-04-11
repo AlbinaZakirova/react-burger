@@ -84,23 +84,30 @@ export const updateToken = async(token) =>
   body: JSON.stringify(token),
   })
 
-export const logoutUser = async (token) =>   //ВЫХОД
-  await request ('auth/logout', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-    body: JSON.stringify(token),
-})
-
-
-export const getUser = async (method, userData) =>   //ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЯ
-  await request ('auth/user ', {
-    method: method,
+export const logoutUser = async (token) =>
+  await request('auth/logout', {
+    method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-    }, 
-    body:JSON.stringify({authorization:getItemByKey('refreshToken'), ...userData}),
-
+    },
+    body: JSON.stringify({token: token}),
   })
 
+
+export const getUser = async () =>
+  await request('auth/user', {
+    method: "GET",
+    headers: {
+      authorization: getItemByKey('refreshToken')
+    }
+  })
+
+export const updateUser = async (userData) =>
+  await request('auth/user', {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: getItemByKey('refreshToken')
+    },
+    body: JSON.stringify({...userData})
+  })
