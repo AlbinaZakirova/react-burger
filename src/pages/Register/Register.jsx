@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Register.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/reducers/user';
 
 
 const Registration = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {isRegistred} = useSelector(state => state.userStore);
+  
+
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -27,9 +31,13 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(userData));
+    dispatch(registerUser(userData)); 
   }
 
+
+  useEffect(() => {
+    isRegistred && navigate('/')
+  }, [isRegistred])
 
   return (
     <div className={style.loginContainer}>

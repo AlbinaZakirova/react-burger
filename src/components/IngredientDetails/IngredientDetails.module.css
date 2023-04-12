@@ -1,6 +1,7 @@
 .image_container {
   width: 520px;
   height: 240px;
+  margin: 0 auto;
 }
 
 .description {
@@ -26,5 +27,6 @@
 
 .ingedientDetails__title {
   margin: 40px 40px 0 ;
+  text-align: center;
 }
 

@@ -33,7 +33,7 @@ const ProduktCategory = forwardRef(({ title, id, ingredients}, ref) => {
           />
         )}
       </div>
-      {currentIngredient &&<Modal title="Детали игредиента" onClose={removeCurrentIngredientInModalHandler}><IngredientDetails data={currentIngredient}/></Modal>}
+      {/* {currentIngredient &&<Modal title="Детали игредиента" onClose={removeCurrentIngredientInModalHandler}><IngredientDetails data={currentIngredient}/></Modal>} */}
     </>
   )
 })
@@ -45,4 +45,5 @@ ProduktCategory.propTypes = {
 }
 
 export default ProduktCategory;
+
 

@@ -21,15 +21,13 @@ const AppHeader = () => {
         <div className={classnames(style.header__column, style.logo)}>
           <Logo />
         </div>
-        <div className={classnames(style.header__column, style.header__profile)}>
-          <Link
+        <NavLink
             to="/profile"
             className={classnames(style.header__link, style.header__linkProfile, 'text text_type_main-default text_color_inactive ml-2')}
           >
             <ProfileIcon type="secondary"/>
             Личный кабинет
-          </Link>
-        </div>
+          </NavLink>
       </nav>
     </header>
   )

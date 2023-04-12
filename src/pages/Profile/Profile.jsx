@@ -37,7 +37,7 @@ const Profile = () => {
         <nav className={style.list}>
           <NavLink className={({isActive}) => isActive ? activeClasses : inactiveClasses} to='/profile' end>Профиль</NavLink>
           <NavLink className={({isActive}) => isActive ? activeClasses : inactiveClasses} to='/profile/orders' end>История заказов</NavLink>
-          <button className={classnames(style.list__item, style.list__button,'text text_type_main-medium text_color_inactive mb-6')} onСlick={logoutHandler} >Выход</button>
+          <button className={classnames(style.list__item, style.list__button,'text text_type_main-medium text_color_inactive mb-6')} onClick={logoutHandler} >Выход</button>
         </nav>
         <span className={classnames(style.list__span,'text text_type_main-default text_color_inactive')} >
           В этом разделе вы можете<br />изменить свои персональные данные

@@ -7,18 +7,18 @@ const sliceName = 'user'
 
 const initialState = {
   user: null,
+  isAuth: false,
   isLogin: null,
   isRegistred: null,
   isExited: null,
   isTokenUpdated: null,
   isUserDataGot: null,
   isUserDataUpdated: null
-  
 }
 
 export const registerUser = createAsyncThunk(
   `${sliceName}/registerUser`,
-  async (dataUser, {rejectWithValue}) => {
+  async (dataUser, {rejectWithValue, dispatch}) => {
     try {
       const res = await registrationUser(dataUser);
       if (!res) {
@@ -32,14 +32,14 @@ export const registerUser = createAsyncThunk(
         return rejectWithValue(error);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
-    }
+    } 
   }
 );
 
 
 export const signInUser = createAsyncThunk(
   `${sliceName}/loginUser`,
-  async (dataUser, {rejectWithValue}) => {
+  async (dataUser, {rejectWithValue, dispatch}) => {
     try {
       const res = await loginUser(dataUser);
       if (!res) {
@@ -53,7 +53,7 @@ export const signInUser = createAsyncThunk(
         return rejectWithValue(error);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
-    }
+    } 
   }
 );
 
@@ -134,19 +134,23 @@ export const updateUserData = createAsyncThunk(
 export const userSlice = createSlice({
   name: sliceName,
   initialState,
+  
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isRegistred = action.payload.success;
+        state.isAuth = true;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.user = {...action.payload.user, password: action.payload.password};
         state.isLogin = action.payload.success;
+        state.isAuth = true;
       })
       .addCase(exitUser.fulfilled, (state, action) => {
         state.user = null;
         state.isExited = action.payload.success;
+        state.isAuth = false;
       })
       .addCase(updateAccessToken.fulfilled, (state, action) => {
         setItemByKey('refreshToken', action.payload.refreshToken)
@@ -164,6 +168,7 @@ export const userSlice = createSlice({
   }
 })
 
-export default userSlice.reducer
+
+export default userSlice.reducer;
 
  
