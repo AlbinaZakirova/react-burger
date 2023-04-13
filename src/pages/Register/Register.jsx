@@ -52,8 +52,6 @@ const Registration = () => {
             value={userData.name}
             name={'name'}
             error={false}
-            // ref={inputRef}
-            // onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="mb-2"

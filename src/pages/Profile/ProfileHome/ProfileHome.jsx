@@ -1,5 +1,4 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import classnames from "classnames";
 import style from "./ProfileHome.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -10,7 +9,7 @@ const ProfileHome = () => {
 
   const dispatch = useDispatch();
 
-  const {user} = useSelector(state => state.userStore)
+  const {user, isUserDataGot} = useSelector(state => state.userStore)
 
   const [isButtonsShow, setIsButtonsShow] = useState(false)
 
@@ -22,12 +21,15 @@ const ProfileHome = () => {
   const [userData, setUserData] = useState( {
     email: user?.email,
     name: user?.name,
-    password: user?.password,
   })
 
   useEffect(() => {
     changeTracking()
   }, [userData])
+
+  useEffect(() => {
+    isUserDataGot && setUserData({email: user?.email, name: user?.name})
+  }, [isUserDataGot])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +48,6 @@ const ProfileHome = () => {
     setUserData({...user})
   }
 
-
-
   return (
     <form className={style.loginForm}>
       <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -55,13 +55,9 @@ const ProfileHome = () => {
           type={'text'}
           placeholder={'Имя'}
           onChange={(e) => handleChange(e)}
-          // icon={'CurrencyIcon'}
-          // value={userData.name}
           value={userData?.name || ''}
           name={'name'}
           error={false}
-          // ref={inputRef}
-          // onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
           extraClass="mb-6"

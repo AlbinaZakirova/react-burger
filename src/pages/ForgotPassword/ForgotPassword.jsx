@@ -2,23 +2,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './ForgotPassword.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { resetPassword } from '../../utils/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { forgotPassword } from '../../services/reducers/user';
 
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const {isUserForgotPassword} = useSelector(state => state.userStore);
 
   const handleChange = (e) => 
   setEmail(e.target.value)
 
   const resetPasswordHandler = (e) => {
     e.preventDefault();
-    resetPassword(email)
-      .then((res) => res.success && navigate('/reset-password'))
-      .catch(err => console.log(`Ошибка ${err}`))
+    dispatch(forgotPassword(email))
   }
+
+  useEffect (() => {
+    isUserForgotPassword && navigate('/reset-password')
+  },[isUserForgotPassword])
 
 
   return (

@@ -33,16 +33,11 @@ const ResetPassword = () => {
       <form onSubmit={onSubmit} className="loginForm">
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Восстановление пароля</p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-
           <Input
-            // type={'text'}
             placeholder={'Введите код из письма'}
             onChange={(e) => handleChange(e)}
             value={resetData.token}
             name={'token'}
-            // error={false}
-            // errorText={'Ошибка'}
-            // size={'default'}
             extraClass="mb-2"
           />
           <PasswordInput
@@ -52,9 +47,6 @@ const ResetPassword = () => {
             extraClass="mb-2"
             placeholder={'Введите новый пароль'}
           />
-
-          
-          
           <div className={style.login__button}>
             <Button 
               htmlType="submit" 
@@ -63,12 +55,10 @@ const ResetPassword = () => {
             </Button>
           </div>
         </div>
-
         <div className={style.login_signupContainer}>
           <span className="text text_type_main-default text_color_inactive">Вспомнили пароль?</span>
           <Link to="/login" className={classnames(style.login__link, "text text_type_main-default")}>Войти</Link>
         </div>
-
       </form>
     </div>
   )

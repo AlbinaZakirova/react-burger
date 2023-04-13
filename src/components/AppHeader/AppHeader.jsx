@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { ListIcon, BurgerIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"; 
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './AppHeader.module.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const AppHeader = () => {
   return (

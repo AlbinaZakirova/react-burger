@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getUser, loginUser, logoutUser, registrationUser, updateToken, updateUser} from "../../utils/api";
+import {getUser, loginUser, logoutUser, registrationUser, resetPassword, updateToken, updateUser} from "../../utils/api";
 import {deleteItemByKey, getItemByKey, setItemByKey } from "../../utils/localStorage";
 
 
@@ -13,12 +13,31 @@ const initialState = {
   isExited: null,
   isTokenUpdated: null,
   isUserDataGot: null,
-  isUserDataUpdated: null
+  isUserDataUpdated: null,
+  isUserForgotPassword: null
 }
+
+export const forgotPassword = createAsyncThunk(
+  `${sliceName}/forgotPassword`,
+  async (email, {rejectWithValue}) => {
+    try {
+      const res = await resetPassword(email);
+      if (!res) {
+        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+      }
+      return res;
+    } catch (error) {
+      if (error.statusCode) {
+        return rejectWithValue(error);
+      }
+      return rejectWithValue({message: 'Ошибка на стороне сервера'})
+    } 
+  }
+);
 
 export const registerUser = createAsyncThunk(
   `${sliceName}/registerUser`,
-  async (dataUser, {rejectWithValue, dispatch}) => {
+  async (dataUser, {rejectWithValue}) => {
     try {
       const res = await registrationUser(dataUser);
       if (!res) {
@@ -39,7 +58,7 @@ export const registerUser = createAsyncThunk(
 
 export const signInUser = createAsyncThunk(
   `${sliceName}/loginUser`,
-  async (dataUser, {rejectWithValue, dispatch}) => {
+  async (dataUser, {rejectWithValue}) => {
     try {
       const res = await loginUser(dataUser);
       if (!res) {
@@ -47,7 +66,7 @@ export const signInUser = createAsyncThunk(
       }
       setItemByKey('accessToken', res.accessToken)
       setItemByKey('refreshToken', res.refreshToken)
-      return {...res, password: dataUser.password};
+      return res;
     } catch (error) {
       if (error.statusCode) {
         return rejectWithValue(error);
@@ -131,6 +150,8 @@ export const updateUserData = createAsyncThunk(
   }
 )
 
+
+
 export const userSlice = createSlice({
   name: sliceName,
   initialState,
@@ -143,7 +164,7 @@ export const userSlice = createSlice({
         state.isAuth = true;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
-        state.user = {...action.payload.user, password: action.payload.password};
+        state.user = action.payload.user;
         state.isLogin = action.payload.success;
         state.isAuth = true;
       })
@@ -158,12 +179,15 @@ export const userSlice = createSlice({
         state.isTokenUpdated = action.payload.success;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
-        state.user = {password: state.user.password, ...action.payload.user};
+        state.user = action.payload.user;
         state.isUserDataGot = action.payload.success;
       })
       .addCase(updateUserData.fulfilled, (state, action) => {
-        state.user = {password: state.user.password, ...action.payload.user};
+        state.user = action.payload.user;
         state.isUserDataUpdated = action.payload.success;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.isUserForgotPassword = action.payload.success;
       })
   }
 })

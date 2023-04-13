@@ -1,4 +1,3 @@
-// import { getCookie, setCookie } from './cookies';
 
 import { getItemByKey } from "./localStorage";
 
@@ -57,7 +56,7 @@ export const recoveryPassword = async data =>
     )
   });
 
-export const registrationUser = async (data) =>   //РЕГИСТРАЦИЯ
+export const registrationUser = async (data) =>   
   await request ('auth/register', {
     method: "POST",
     headers: {
@@ -66,7 +65,7 @@ export const registrationUser = async (data) =>   //РЕГИСТРАЦИЯ
       body: JSON.stringify(data),
   })
   
-export const loginUser = async (data) =>   //ВХОД
+export const loginUser = async (data) =>   
   await request ('auth/login', {
   method: "POST",
   headers: {
@@ -98,7 +97,7 @@ export const getUser = async () =>
   await request('auth/user', {
     method: "GET",
     headers: {
-      authorization: getItemByKey('refreshToken')
+      authorization: getItemByKey('accessToken')
     }
   })
 
@@ -107,7 +106,7 @@ export const updateUser = async (userData) =>
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      authorization: getItemByKey('refreshToken')
+      authorization: getItemByKey('accessToken')
     },
     body: JSON.stringify({...userData})
   })

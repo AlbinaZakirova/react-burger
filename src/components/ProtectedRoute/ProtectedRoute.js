@@ -1,26 +1,30 @@
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from "react-router-dom";
+import NotFound from "../../pages/NotFound/NotFound";
 
-export const ProtectedRoute = ({ onlyUnAuth, children }) => {
+export const ProtectedRoute = ({ isForAuthUser, children }) => {
     const location = useLocation();
-    const user = useSelector(state => state.rootReducer?.user.data)
-    const isAuthChecked = useSelector(state => state.rootReducer?.user.isAuthChecked);
+    const {user, isAuth, isUserForgotPassword} = useSelector(state => state.userStore)
+    
+    
+    if (isAuth && isForAuthUser) {
+        return children
+      }
+    
+      if (isAuth && !isForAuthUser) {
+        return <NotFound/>
+      }
 
-    if (!isAuthChecked) return <h2>Loading...</h2>
+      if (!isAuth && isForAuthUser) {
+        return <Navigate replace to={{ pathname: "/login" }} state={{ from: location }} />
+      }
 
-    if (onlyUnAuth && user) {
-        const { from } = location.state || { from: { pathname: '/' } }
-        const { background } = location.state?.from?.state || { background: null };
-        console.log('nav prof')
-        return <Navigate replace to={from} state={{ background }} />;
-    }
-
-    if (!onlyUnAuth && !user) {
-        console.log('NAVIGATE LOGIN');
-        return (
-            <Navigate replace to={{ pathname: "/login" }} state={{ from: location }} />
-        );
-    }
+      if (!isAuth && !isForAuthUser) {
+        if (location.pathname === '/reset-password') {
+          return isUserForgotPassword ? children : <NotFound/>
+        }
+        return children
+      }
 
     return children;
 

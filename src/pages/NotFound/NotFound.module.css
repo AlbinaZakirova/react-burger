@@ -1,0 +1,8 @@
+.text {
+  font-family: 'Jet Brains Mono', sans-serif;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
