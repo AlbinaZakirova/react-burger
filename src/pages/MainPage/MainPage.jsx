@@ -1,9 +1,9 @@
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import style from './MainPage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import classnames from 'classnames';
+import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
+import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 
 const MainPage = () => {
   return (

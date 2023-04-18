@@ -5,7 +5,6 @@ import { fetchIngredients } from '../../services/reducers/ingredients';
 import { useDispatch } from 'react-redux/es/exports';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Login from '../../pages/Login/Login';
-import MainPage from '../MainPage/MainPage';
 import Registration from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
@@ -14,6 +13,7 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
+import MainPage from '../../pages/MainPage/MainPage';
 
 
 export const App = () => {
@@ -43,6 +43,7 @@ export const App = () => {
           <Route path="/profile" element={<ProtectedRoute isForAuthUser> <Profile /> </ProtectedRoute>} />
           <Route path="/ingredient/:idIngredient" element={<ProtectedRoute isForAuthUser><IngredientDetails /> </ProtectedRoute> } />
           <Route path="/" element={<ProtectedRoute ><MainPage /></ProtectedRoute>} />
+          
           <Route path="*" element={<NotFound/>}/>
         </Routes>
         {background && (

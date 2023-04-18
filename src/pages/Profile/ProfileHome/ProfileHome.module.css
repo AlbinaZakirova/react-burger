@@ -4,3 +4,9 @@
   align-items: center;
   height: 100%;
 }
+
+.choose {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}

@@ -78,7 +78,7 @@ const ProfileHome = () => {
           icon="EditIcon"
         />
       </div>
-      <div className='mt-6'>
+      <div className= {'mt-6'}>
         {isButtonsShow &&
           <>
             <Button type="secondary" size="medium" htmlType="reset" extraClass="pr-7" onClick={cancelHandler}>Отмена</Button>
