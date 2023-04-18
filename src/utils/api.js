@@ -1,5 +1,4 @@
-
-import { getItemByKey } from "./localStorage";
+import {getItemByKey} from "./localStorage";
 
 
 const checkResponse = (res) => {
@@ -23,18 +22,18 @@ export const getIngredients = async () =>
 export const makeOrder = async ingredientIds =>
   await request('orders', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       ingredients: ingredientIds
     })
   })
-  .then(res => {
-    if (res.success) {
-      return res
-    }
-  }) 
+    .then(res => {
+      if (res.success) {
+        return res
+      }
+    })
 
-export const resetPassword = async email =>   
+export const resetPassword = async email =>
   await request('password-reset', {
     method: 'POST',
     headers: {
@@ -45,7 +44,7 @@ export const resetPassword = async email =>
     })
   });
 
-export const recoveryPassword = async data =>   
+export const recoveryPassword = async data =>
   await request('password-reset/reset', {
     method: 'POST',
     headers: {
@@ -56,31 +55,31 @@ export const recoveryPassword = async data =>
     )
   });
 
-export const registrationUser = async (data) =>   
-  await request ('auth/register', {
+export const registrationUser = async (data) =>
+  await request('auth/register', {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
-      body: JSON.stringify(data),
-  })
-  
-export const loginUser = async (data) =>   
-  await request ('auth/login', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
     body: JSON.stringify(data),
-})
+  })
 
-export const updateToken = async(token) =>
-  await request('/auth/token', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-  body: JSON.stringify(token),
+export const loginUser = async (data) =>
+  await request('auth/login', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  })
+
+export const updateToken = async () =>
+  await request('auth/token', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({token: getItemByKey('refreshToken')}),
   })
 
 export const logoutUser = async (token) =>

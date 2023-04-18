@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Login.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signInUser } from '../../services/reducers/user';
 
 
 const Login = () => {
-  const navigate = useNavigate();
+  
 
   const dispatch = useDispatch();
 
-  const {isLogin} = useSelector(state => state.userStore);
+  
 
   const [userData, setUserData] = useState({
     email: '',
@@ -33,12 +33,10 @@ const Login = () => {
       return null;
     }
     dispatch(signInUser(userData))
+    
   }
 
-  useEffect(() => {
-    isLogin && navigate('/')
-  }, [isLogin])
-
+  
   return (
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className="loginForm">

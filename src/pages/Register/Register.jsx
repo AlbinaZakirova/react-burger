@@ -11,7 +11,7 @@ const Registration = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isRegistred} = useSelector(state => state.userStore);
+  const {isRegistered} = useSelector(state => state.userStore);
   
 
   const [userData, setUserData] = useState({
@@ -36,8 +36,8 @@ const Registration = () => {
 
 
   useEffect(() => {
-    isRegistred && navigate('/')
-  }, [isRegistred])
+    isRegistered && navigate('/')
+  }, [isRegistered])
 
   return (
     <div className={style.loginContainer}>

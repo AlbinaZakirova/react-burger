@@ -1,15 +1,23 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getUser, loginUser, logoutUser, registrationUser, resetPassword, updateToken, updateUser} from "../../utils/api";
-import {deleteItemByKey, getItemByKey, setItemByKey } from "../../utils/localStorage";
+import {
+  getUser,
+  loginUser,
+  logoutUser,
+  registrationUser,
+  resetPassword,
+  updateToken,
+  updateUser
+} from "../../utils/api";
+import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
 
 
-const sliceName = 'user' 
+const sliceName = 'user'
 
 const initialState = {
   user: null,
   isAuth: false,
   isLogin: null,
-  isRegistred: null,
+  isRegistered: null,
   isExited: null,
   isTokenUpdated: null,
   isUserDataGot: null,
@@ -31,7 +39,7 @@ export const forgotPassword = createAsyncThunk(
         return rejectWithValue(error);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
-    } 
+    }
   }
 );
 
@@ -51,7 +59,7 @@ export const registerUser = createAsyncThunk(
         return rejectWithValue(error);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
-    } 
+    }
   }
 );
 
@@ -72,7 +80,7 @@ export const signInUser = createAsyncThunk(
         return rejectWithValue(error);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
-    } 
+    }
   }
 );
 
@@ -98,9 +106,9 @@ export const exitUser = createAsyncThunk(
 
 export const updateAccessToken = createAsyncThunk(
   `${sliceName}/updateAccessToken`,
-  async (refreshToken, {rejectWithValue}) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const res = await updateToken(refreshToken);
+      const res = await updateToken();
       if (!res) {
         throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
       }
@@ -116,7 +124,7 @@ export const updateAccessToken = createAsyncThunk(
 
 export const getUserData = createAsyncThunk(
   `${sliceName}/getUserData`,
-  async (_, {rejectWithValue}) => {
+  async (_, {rejectWithValue, dispatch}) => {
     try {
       const res = await getUser();
       if (!res) {
@@ -124,6 +132,10 @@ export const getUserData = createAsyncThunk(
       }
       return res;
     } catch (error) {
+      if (error.message === 'jwt expired') {
+        dispatch(updateAccessToken())
+        dispatch(getUserData())
+      }
       if (error.statusCode) {
         return rejectWithValue(error);
       }
@@ -134,7 +146,7 @@ export const getUserData = createAsyncThunk(
 
 export const updateUserData = createAsyncThunk(
   `${sliceName}/updateUserData`,
-  async (userData, {rejectWithValue}) => {
+  async (userData, {rejectWithValue, dispatch}) => {
     try {
       const res = await updateUser(userData);
       if (!res) {
@@ -142,6 +154,10 @@ export const updateUserData = createAsyncThunk(
       }
       return res;
     } catch (error) {
+      if (error.message === 'jwt expired') {
+        dispatch(updateAccessToken())
+        dispatch(updateUserData(userData))
+      }
       if (error.statusCode) {
         return rejectWithValue(error);
       }
@@ -151,16 +167,19 @@ export const updateUserData = createAsyncThunk(
 )
 
 
-
 export const userSlice = createSlice({
   name: sliceName,
   initialState,
-  
+  reducers: {
+    checkAuthorization: (state) => {
+      state.isAuth = !!getItemByKey('accessToken')
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.isRegistred = action.payload.success;
+        state.isRegistered = action.payload.success;
         state.isAuth = true;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
@@ -192,6 +211,7 @@ export const userSlice = createSlice({
   }
 })
 
+export const {checkAuthorization} = userSlice.actions
 
 export default userSlice.reducer;
 

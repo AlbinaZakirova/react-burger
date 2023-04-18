@@ -1,31 +1,32 @@
-import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from "react-router-dom";
+import {useSelector} from 'react-redux';
+import {Navigate, useLocation} from "react-router-dom";
 import NotFound from "../../pages/NotFound/NotFound";
+import {useDispatch} from "react-redux/es/hooks/useDispatch";
+import {checkAuthorization} from "../../services/reducers/user";
 
-export const ProtectedRoute = ({ isForAuthUser, children }) => {
-    const location = useLocation();
-    const {user, isAuth, isUserForgotPassword} = useSelector(state => state.userStore)
-    
-    
-    if (isAuth && isForAuthUser) {
-        return children
-      }
-    
-      if (isAuth && !isForAuthUser) {
-        return <NotFound/>
-      }
+export const ProtectedRoute = ({isForNotAuthUser, children}) => {
+  const dispatch = useDispatch();
+  dispatch(checkAuthorization());
 
-      if (!isAuth && isForAuthUser) {
-        return <Navigate replace to={{ pathname: "/login" }} state={{ from: location }} />
-      }
+  const location = useLocation();
+  const {isAuth, isUserForgotPassword} = useSelector(state => state.userStore)
 
-      if (!isAuth && !isForAuthUser) {
-        if (location.pathname === '/reset-password') {
-          return isUserForgotPassword ? children : <NotFound/>
-        }
-        return children
-      }
+  if (isForNotAuthUser && isAuth) {
+    const {from} = location.state || {from: {pathname: '/'}}
+    const {background} = location.state?.from?.state || {background: null};
+    return <Navigate replace to={from} state={{background}}/>;
+  }
 
-    return children;
+  if (!isForNotAuthUser && !isAuth) {
+    return <Navigate replace to={{pathname: "/login"}} state={{from: location}}/>
+  }
 
+  if (isForNotAuthUser && !isAuth ) {
+    if (location.pathname === '/reset-password') {
+      return isUserForgotPassword ? children : <NotFound/>
+    }
+    return children
+  }
+  
+  return children;
 }

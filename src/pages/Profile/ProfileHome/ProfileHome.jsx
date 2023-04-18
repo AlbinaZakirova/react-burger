@@ -42,6 +42,7 @@ const ProfileHome = () => {
   const saveHandler = (e) => {
     e.preventDefault();
     dispatch(updateUserData(userData));
+    setIsButtonsShow(false);
   }
 
   const cancelHandler = () => {
