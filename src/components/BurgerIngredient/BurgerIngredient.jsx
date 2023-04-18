@@ -5,8 +5,11 @@ import PropTypes from "prop-types";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './BurgerIngredient.module.css'
 import ingredientPropType from '../../utils/prop-types';
+import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredient = ({ingredient, onClick}) => {
+
+  const location = useLocation();
   const {bun, ingredients: constructorIngredients} = useSelector(state => state.constructorStore);
 
   const countIngredient = useMemo(() => id =>
@@ -21,7 +24,7 @@ const BurgerIngredient = ({ingredient, onClick}) => {
   });
   
   return (
-    <div className={style.ingredient__wrap} onClick={onClick} ref={drag}>
+    <Link to={`/ingredient/${ingredient._id}`} state={{background: location}} replace={true} className={style.ingredient__wrap} onClick={onClick} ref={drag}>
       <img className={style.ingredient__image} src={ingredient.image} alt={ingredient.name}/>
       {countIngredient(ingredient._id) !== 0 &&
         <Counter count={countIngredient(ingredient._id)} size='default' className={style.counter}/>}
@@ -32,7 +35,7 @@ const BurgerIngredient = ({ingredient, onClick}) => {
       <p className={`${style.ingredient__name} text text_type_main-default`}>
         {ingredient.name}
       </p>
-    </div>
+    </Link>
   )
 }
 
@@ -42,4 +45,3 @@ BurgerIngredient.propTypes = {
 };
 
 export default BurgerIngredient;  
-

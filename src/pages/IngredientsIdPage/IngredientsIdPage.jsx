@@ -1,9 +1,9 @@
 import classnames from 'classnames';
-import style from './IngredientDetails.module.css';
+import style from './IngredientsIdPage.module.css';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const IngredientDetails = () => {
+const IngredientsIdPage = () => {
   const {idIngredient} = useParams();
   const ingredients = useSelector(state => state.ingredientsStore.data)
   const currentIngredient = ingredients.find(item => item._id === idIngredient)
@@ -37,5 +37,4 @@ const IngredientDetails = () => {
 }
 
 
-export default IngredientDetails; 
-
+export default IngredientsIdPage; 

@@ -10,11 +10,14 @@ import Modal from '../Modal/Modal';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
 import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
-
+import {useLocation, useNavigate} from 'react-router-dom';
 
 const BurgerConstructor = () => {
   const urlImageLoader = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {isAuth} = useSelector(state => state.userStore);
 
   const {bun, ingredients} = useSelector(state => state.constructorStore);
 
@@ -34,6 +37,9 @@ const BurgerConstructor = () => {
   };
 
   const makeOrderHandler = () => {
+    if (!isAuth) {
+      return navigate('/login', {replace: true})
+    }
     setOrderWindow(true)
     dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))
     dispatch(clearConstructor())

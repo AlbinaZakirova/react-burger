@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import classnames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
-import ProduktCategory from '../ProduktCategory/ProduktCategory';
+import ProductCategory from '../ProductCategory/ProductCategory';
 
 
 const BurgerIngredients = () => {
@@ -53,19 +53,19 @@ const BurgerIngredients = () => {
       </div>
 
       <div className={classnames(style.scroll, 'custom-scroll')}>
-        <ProduktCategory 
+        <ProductCategory 
           title="Булки"
           id="buns"
           ingredients={buns}
           ref={refBuns}
         />
-        <ProduktCategory 
+        <ProductCategory 
           title="Соусы"
           id="sauce"
           ingredients={sauce}
           ref={refSauce}
         />
-        <ProduktCategory 
+        <ProductCategory 
           title="Начинки"
           id="main"
           ingredients={main}

@@ -1,3 +1,6 @@
+import {getItemByKey} from "./localStorage";
+
+
 const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
 }
@@ -19,13 +22,91 @@ export const getIngredients = async () =>
 export const makeOrder = async ingredientIds =>
   await request('orders', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       ingredients: ingredientIds
     })
   })
-  .then(res => {
-    if (res.success) {
-      return res
+    .then(res => {
+      if (res.success) {
+        return res
+      }
+    })
+
+export const resetPassword = async email =>
+  await request('password-reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      email
+    })
+  });
+
+export const recoveryPassword = async data =>
+  await request('password-reset/reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(
+      data
+    )
+  });
+
+export const registrationUser = async (data) =>
+  await request('auth/register', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  })
+
+export const loginUser = async (data) =>
+  await request('auth/login', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  })
+
+export const updateToken = async () =>
+  await request('auth/token', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({token: getItemByKey('refreshToken')}),
+  })
+
+export const logoutUser = async (token) =>
+  await request('auth/logout', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({token: token}),
+  })
+
+
+export const getUser = async () =>
+  await request('auth/user', {
+    method: "GET",
+    headers: {
+      authorization: getItemByKey('accessToken')
     }
   })
+
+export const updateUser = async (userData) =>
+  await request('auth/user', {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: getItemByKey('accessToken')
+    },
+    body: JSON.stringify({...userData})
+  })
+ 

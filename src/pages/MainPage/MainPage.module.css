@@ -1,0 +1,14 @@
+.app__title {
+  width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.main {
+  display: flex;
+  width: 1280px;
+  gap: 40px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
