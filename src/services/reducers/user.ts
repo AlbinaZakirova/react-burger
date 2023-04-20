@@ -11,11 +11,20 @@ import {
 import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
 
 
+export type TUserState = {
+  isAuth: boolean;
+  data?: {
+    email?: string;
+    name?: string;
+    password?: string;
+  } | null;
+}
+
 const sliceName = 'user' 
 
 export interface IUserData {
   email?: string ;
-  password?: number;
+  password?: string;
 }
 
 export interface IDataUser {
@@ -40,6 +49,7 @@ const initialState = {
   isUserDataUpdated: null,
   isUserForgotPassword: null
 }
+
 
 export const forgotPassword = createAsyncThunk(
   `${sliceName}/forgotPassword`,
@@ -168,7 +178,7 @@ export const getUserData = createAsyncThunk(
 
 export const updateUserData = createAsyncThunk(
   `${sliceName}/updateUserData`,
-  async (userData: IUserData, {rejectWithValue, dispatch}) => {
+  async (userData: IDataUser, {rejectWithValue, dispatch}) => {
     try {
       const res = await updateUser(userData);
       if (!res) {

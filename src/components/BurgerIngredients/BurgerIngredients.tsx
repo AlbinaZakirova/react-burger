@@ -1,5 +1,4 @@
 import { useState,useMemo, useEffect } from 'react';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useInView } from 'react-intersection-observer';
 import classnames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';

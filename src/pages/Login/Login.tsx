@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Login.module.css';
@@ -20,10 +20,10 @@ const Login = () => {
     setUserData({
       ...userData,
       [name]: value
-    });
+    }); 
   }
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     if (!userData.email || !userData.password) {
       return null;

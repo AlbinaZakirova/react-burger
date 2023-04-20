@@ -1,6 +1,4 @@
 import {useState, useMemo} from 'react';
-import {useSelector} from 'react-redux/es/hooks/useSelector';
-import {useDispatch} from "react-redux/es/hooks/useDispatch";
 import {useDrop} from 'react-dnd/dist/hooks/useDrop';
 import classnames from 'classnames';
 import { Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
@@ -22,24 +20,27 @@ const BurgerConstructor = () => {
 
   const {bun, ingredients} = useAppSelector(state => state.constructorStore);
 
-  const [orderWindow, setOrderWindow] = useState(null);
+  const [orderWindow, setOrderWindow] = useState(false);
   const {orderData} = useAppSelector(state => state.orderStore)
 
   const sum = useMemo(() => {
-    const priceBun = bun?.price * 2 || 0
+    const priceBun = bun?.price ? bun.price * 2 : 0;
     const ingredientsSum = ingredients.length > 0
-      ? ingredients.reduce((acc: any, ingredient: any) => acc += ingredient.price, 0)
+      ? ingredients.reduce((acc, ingredient) => acc += ingredient.price, 0)
       : 0
     return priceBun + ingredientsSum
   }, [bun?.price, ingredients.length])
 
   const closeModalWindow = () => {
-    setOrderWindow(null);
+    setOrderWindow(false);
   };
 
   const makeOrderHandler = () => {
     if (!isAuth) {
       return navigate('/login', {replace: true})
+    }
+    if (!bun) {
+      return;
     }
     setOrderWindow(true)
     dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))  

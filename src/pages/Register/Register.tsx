@@ -1,9 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Register.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
@@ -30,7 +29,7 @@ const Registration = () => {
   }
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser(userData)); 
   }

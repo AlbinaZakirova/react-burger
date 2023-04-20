@@ -1,16 +1,12 @@
 import { createPortal } from "react-dom"
-import { ReactElement, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { TModal } from "../../utils/types/types";
 import { FC } from 'react';
 
-
 const modalRoot = document.querySelector("#modals")
-
-
 
 const Modal: FC <TModal> = ({ onClose, children }) => {
   useEffect(() => {

@@ -1,7 +1,6 @@
 import classnames from 'classnames';
 import style from './IngredientsIdPage.module.css';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useAppSelector } from '../../utils/types/hooks';
 
 const IngredientsIdPage = () => { 

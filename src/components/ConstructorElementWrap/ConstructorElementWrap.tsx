@@ -4,12 +4,12 @@ import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 import { useDispatch } from 'react-redux';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'; 
 import { moveElement, removeConstructor } from "../../services/reducers/constructor";
-import { TConstructorElementWrap, TIngredientType } from '../../utils/types/types';
+import { TConstructorElementWrap } from '../../utils/types/types';
 
 
 const ConstructorElementWrap: FC <TConstructorElementWrap> = ({ingredient, index}) => {
   const dispatch = useDispatch();
-  const ref = useRef(null)
+  const ref = useRef<HTMLInputElement>(null)
   const uuid = ingredient.uuid;
 
   const moveCard = (start: number | undefined, end: number | undefined) => {
@@ -31,7 +31,7 @@ const ConstructorElementWrap: FC <TConstructorElementWrap> = ({ingredient, index
       }
       const dragIndex = item.index
       const hoverIndex: any = index
-      if (dragIndex === hoverIndex) {
+      if (dragIndex === hoverIndex) { 
         return
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
@@ -51,8 +51,8 @@ const ConstructorElementWrap: FC <TConstructorElementWrap> = ({ingredient, index
   })
 
   drag(drop(ref));
-  const removeIngredientBurger = (id:number) =>
-    dispatch(removeConstructor(id))
+  const removeIngredientBurger = (uuid: string| undefined) =>
+    dispatch(removeConstructor(uuid))
   return (
     <div className={('mt-4 mb-4')}  key={ingredient.uuid} ref={ref}>
       <DragIcon type="primary"/>

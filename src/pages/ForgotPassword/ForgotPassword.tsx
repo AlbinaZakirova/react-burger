@@ -2,8 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './ForgotPassword.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { forgotPassword } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
@@ -17,7 +16,7 @@ const ForgotPassword = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => 
   setEmail(e.target.value)
 
-  const resetPasswordHandler = (e: any) => {
+  const resetPasswordHandler = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     dispatch(forgotPassword(email))
   }

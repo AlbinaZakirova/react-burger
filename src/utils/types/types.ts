@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, ReactElement } from "react"
 
 export type TUserState = {
+  user: boolean | null;
   isAuth: boolean | false;
   isLogin: boolean | null;
   isRegistered: boolean | null;
@@ -10,6 +11,8 @@ export type TUserState = {
   isUserDataUpdated: boolean | null;
   isUserForgotPassword: boolean | null; 
 }
+
+
 
 export type TIngredientType = {
   __v: number,
@@ -25,7 +28,7 @@ export type TIngredientType = {
   image_large: string,
   type: string,
   id?: string,
-  uuid?: string | undefined,
+  uuid: string | undefined,
 }
 
 export type TBurgerIngredient = {
@@ -34,9 +37,9 @@ export type TBurgerIngredient = {
 };
 
 export type TProtectedRoute = {
-  isForNotAuthUser?: any,
-  children?: ReactElement,
-  isAuth?:boolean
+  isForNotAuthUser?: boolean,
+  children?: ReactNode,
+  // isAuth?:boolean
 }
 
 export type TModal = {

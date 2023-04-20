@@ -1,9 +1,10 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
+
 
 const ProfileHome = () => {
 
@@ -32,7 +33,7 @@ const ProfileHome = () => {
     isUserDataGot && setUserData({email: user?.email, name: user?.name})
   }, [isUserDataGot])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent  <HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -40,15 +41,17 @@ const ProfileHome = () => {
     }); 
   }
 
-  const saveHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const saveHandler = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     dispatch(updateUserData(userData)); 
     setIsButtonsShow(false);
   }
 
   const cancelHandler = () => {
-    setUserData({...user})
-  }
+    if (user) {
+      setUserData({ ...user });
+    }
+  };
 
   return (
     <form className={style.loginForm}>
@@ -63,7 +66,6 @@ const ProfileHome = () => {
           errorText={'Ошибка'}
           size={'default'}
           extraClass="mb-6"
-          icon="EditIcon"
         />
         <EmailInput
           onChange={(e) => handleChange(e)}
@@ -71,7 +73,6 @@ const ProfileHome = () => {
           name={'email'}
           isIcon={false}
           extraClass="mb-6"
-          icon="EditIcon"
         />
         <PasswordInput
           onChange={(e) => handleChange(e)}

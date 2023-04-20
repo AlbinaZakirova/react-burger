@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import AppHeader from "../AppHeader/AppHeader";
 import style from './App.module.css';
 import {fetchIngredients} from '../../services/reducers/ingredients';
-import {useDispatch} from 'react-redux/es/exports';
 import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Registration from '../../pages/Register/Register';
@@ -15,7 +14,6 @@ import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/types/hooks';
-
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +31,7 @@ export const App = () => {
 
   return (
     <div className={style.app}>
-      <AppHeader/>
+      <AppHeader />
       <Routes location={background || location}>
         <Route path="/login" element={<ProtectedRoute isForNotAuthUser> <Login/> </ProtectedRoute>}/>
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
@@ -43,7 +41,6 @@ export const App = () => {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
         <Route path="/" element={<MainPage/>}/>
-
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (

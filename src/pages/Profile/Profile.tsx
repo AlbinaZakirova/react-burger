@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import style from './Profile.module.css';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import ProfileHome from './ProfileHome/ProfileHome';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { exitUser, getUserData } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';

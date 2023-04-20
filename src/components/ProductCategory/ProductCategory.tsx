@@ -18,7 +18,6 @@ const ProductCategory = forwardRef(({ title, id, ingredients}: IProductCategory,
   const setIngredientInModalHandler = (ingredient: object) =>
     dispatch(setCurrentIngredient(ingredient))
   
-  
   return (
     <>
       <h2 className='text text_type_main-medium' id={id} ref={ref}>{title}</h2>
@@ -33,7 +32,6 @@ const ProductCategory = forwardRef(({ title, id, ingredients}: IProductCategory,
           />
         )}
       </div>
-      
     </>
   )
 })

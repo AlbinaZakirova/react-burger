@@ -22,7 +22,7 @@ interface IBun {
 }
 
 interface IState {
-  bun: IBun | null;
+  bun: IBun | undefined | null;
   ingredients: IIngredient[];
 }
 
