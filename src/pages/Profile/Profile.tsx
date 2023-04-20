@@ -5,14 +5,15 @@ import ProfileHome from './ProfileHome/ProfileHome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { exitUser, getUserData } from '../../services/reducers/user';
+import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
 const Profile = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const {user, isExited} = useSelector(state => state.userStore);
+  const {user, isExited} = useAppSelector(state => state.userStore); 
 
   useEffect(() => {
     !user && dispatch(getUserData())

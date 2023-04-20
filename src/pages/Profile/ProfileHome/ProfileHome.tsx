@@ -1,15 +1,15 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
+import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
 
 const ProfileHome = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const {user, isUserDataGot} = useSelector(state => state.userStore)
+  const {user, isUserDataGot} = useAppSelector(state => state.userStore)
 
   const [isButtonsShow, setIsButtonsShow] = useState(false)
 
@@ -21,6 +21,7 @@ const ProfileHome = () => {
   const [userData, setUserData] = useState( {
     email: user?.email,
     name: user?.name,
+    password: user?.password,
   })
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const ProfileHome = () => {
     isUserDataGot && setUserData({email: user?.email, name: user?.name})
   }, [isUserDataGot])
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -39,9 +40,9 @@ const ProfileHome = () => {
     }); 
   }
 
-  const saveHandler = (e) => {
+  const saveHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch(updateUserData(userData));
+    dispatch(updateUserData(userData)); 
     setIsButtonsShow(false);
   }
 

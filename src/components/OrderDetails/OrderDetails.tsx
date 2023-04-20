@@ -1,8 +1,12 @@
 import classnames from 'classnames';
-import PropTypes from "prop-types";
 import style from './OrderDetails.module.css';
+import { FC } from 'react';
 
-const OrderDetails = ({number}) => {
+interface IOrderDetails {
+  number: number;
+}
+
+const OrderDetails: FC <IOrderDetails> = ({number}) => {
   return (
     <div className={style.orderDetails}>
       <h2 className="text text_type_digits-large mt-30 mb-8">{number}</h2>
@@ -18,8 +22,5 @@ const OrderDetails = ({number}) => {
   );
 };
 
-OrderDetails.propTypes = {
-  number: PropTypes.number
-}
 
 export default OrderDetails;

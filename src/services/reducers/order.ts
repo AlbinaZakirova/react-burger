@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {makeOrder} from "../../utils/api";
+import { TErrorResponse, TOrderState } from "../../utils/types/types";
 
-const initialState = {
+const initialState: TOrderState = {
   orderData: null,
   isLoading: false,
   error: null
@@ -9,16 +10,17 @@ const initialState = {
 
 export const sendOrder = createAsyncThunk(
   'order/makeOrder',
-  async (orderIds, {dispatch, getState, rejectWithValue}) => {
+  async (orderIds, {rejectWithValue}) => {
     try {
       const res = await makeOrder(orderIds);
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       return res;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as TErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -28,6 +30,7 @@ export const sendOrder = createAsyncThunk(
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(sendOrder.pending, state => {

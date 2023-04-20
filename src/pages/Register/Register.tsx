@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Register.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/reducers/user';
+import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
 
 const Registration = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {isRegistered} = useSelector(state => state.userStore);
+  const {isRegistered} = useAppSelector(state => state.userStore);
   
 
   const [userData, setUserData] = useState({
@@ -20,7 +21,7 @@ const Registration = () => {
     name: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -29,7 +30,7 @@ const Registration = () => {
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(registerUser(userData)); 
   }

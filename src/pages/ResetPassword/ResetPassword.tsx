@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './ResetPassword.module.css';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { recoveryPassword } from '../../utils/api';
 
 
@@ -13,7 +13,7 @@ const ResetPassword = () => {
     token: '',
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setresetData({
       ...resetData,
@@ -21,7 +21,7 @@ const ResetPassword = () => {
     }); 
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     recoveryPassword(resetData)
       .then((res) => res.success && navigate('/login'))

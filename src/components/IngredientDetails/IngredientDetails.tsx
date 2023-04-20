@@ -1,17 +1,18 @@
 import classnames from 'classnames';
 import style from './IngredientDetails.module.css';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useAppSelector } from '../../utils/types/hooks';
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = () => {
   const {idIngredient} = useParams();
-  const ingredients = useSelector(state => state.ingredientsStore.data)
-  const currentIngredient = ingredients.find(item => item._id === idIngredient)
+  const ingredients = useAppSelector(state => state.ingredientsStore.data)
+  const currentIngredient = ingredients.find((item:any) => item._id === idIngredient)
   return (
   <section>
     <h2 className={classnames(style.ingedientDetails__title, "text text_type_main-large")}>Детали ингредиента</h2>
     <div className={classnames(style.image_container, 'mr-25', 'ml-25')}>
-      <img className={style.image} src={currentIngredient?.image_large} alt={currentIngredient?.alt}></img>
+      <img className={style.image} src={currentIngredient?.image_large} alt={currentIngredient?.name}></img>
     </div>
     <p className={classnames(style.description, 'text text_type_main-medium', 'mt-4', 'mb-8')}>{currentIngredient?.name}</p>
     <div className={style.nutrition}>

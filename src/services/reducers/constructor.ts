@@ -1,7 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from 'uuid';
 
-const initialState = {
+interface IIngredient {
+  _id?: string;
+  id: string;
+  name: string;
+  type: string;
+  image: string;
+  price: number;
+  uuid?: string;
+}
+
+interface IBun { 
+  _id?: string;
+  id: string;
+  name: string;
+  type: string;
+  image: string;
+  price: number;
+  uuid?: string;
+}
+
+interface IState {
+  bun: IBun | null;
+  ingredients: IIngredient[];
+}
+
+
+
+const initialState:IState = {
   bun: null,
   ingredients: [],
 }
@@ -29,7 +56,7 @@ export const constructorSlice = createSlice({
     },
 
     moveElement: (state, action) => {
-      let res = []
+      let res = [...state.ingredients]
       let start = action.payload[0]
       let end = action.payload[1]
       if (start === end) {
@@ -59,5 +86,3 @@ export const constructorSlice = createSlice({
 
 export const { addConstructor, removeConstructor, clearConstructor, moveElement } = constructorSlice.actions;
 export default constructorSlice.reducer;
-
-
