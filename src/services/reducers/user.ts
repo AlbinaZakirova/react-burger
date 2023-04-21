@@ -21,7 +21,7 @@ export type TUser = {
   }
 }
 
-const sliceName = 'user' 
+export const sliceName = 'user' 
 
 export interface IDataUser {
   email?: string;

@@ -4,32 +4,34 @@ import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent, FC } f
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
+// import rootReducer from "../../../services/reducers";
 
 const ProfileHome: FC = () => {
 
   const dispatch = useAppDispatch();
-
+  
   const {user, isUserDataGot} = useAppSelector(state => state.userStore)
 
   const [isButtonsShow, setIsButtonsShow] = useState(false)
 
   const changeTracking = () => {
-    const isChanged = user && Object.entries(user).every(field => userData[field[0]] === field[1])
+    const isChanged = JSON.stringify(user) === JSON.stringify(userData)
     setIsButtonsShow(!isChanged);
   }
+
 
   const [userData, setUserData] = useState({
     email: user?.email,
     name: user?.name,
-    password: user?.password, 
+    
   })
-
+  
   useEffect(() => {
     changeTracking()
   }, [userData])
 
   useEffect(() => {
-    isUserDataGot && setUserData({email: user?.email, name: user?.name, password: user?.password})
+    isUserDataGot && setUserData({email: user?.email, name: user?.name})
   }, [isUserDataGot])
 
   const handleChange = (e: ChangeEvent  <HTMLInputElement>) => {
@@ -48,7 +50,7 @@ const ProfileHome: FC = () => {
 
   const cancelHandler = () => {
     if (user) {
-      setUserData({email: user?.email, name: user?.name, password: user?.password});
+      setUserData({email: user?.email, name: user?.name});
     }
   };
 
@@ -75,7 +77,7 @@ const ProfileHome: FC = () => {
         />
         <PasswordInput
           onChange={(e) => handleChange(e)}
-          value={userData?.password || ''}
+          value={''}
           name={'password'}
           icon="EditIcon"
         />
