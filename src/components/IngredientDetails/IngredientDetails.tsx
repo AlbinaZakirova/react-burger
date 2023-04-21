@@ -7,7 +7,7 @@ import { useAppSelector } from '../../utils/types/hooks';
 const IngredientDetails: FC = () => {
   const {idIngredient} = useParams();
   const ingredients = useAppSelector(state => state.ingredientsStore.data)
-  const currentIngredient = ingredients.find((item:any) => item._id === idIngredient)
+  const currentIngredient = ingredients.find(item => item._id === idIngredient)
   return (
   <section>
     <h2 className={classnames(style.ingedientDetails__title, "text text_type_main-large")}>Детали ингредиента</h2>

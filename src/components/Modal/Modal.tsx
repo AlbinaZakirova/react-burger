@@ -10,7 +10,7 @@ const modalRoot = document.querySelector("#modals")
 
 const Modal: FC <TModal> = ({ onClose, children }) => {
   useEffect(() => {
-    function escapeClose(evt:any) {
+    function escapeClose(evt:KeyboardEvent) {
       if (evt.key === "Escape") {
         onClose();
       }

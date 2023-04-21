@@ -8,24 +8,25 @@ import {
   updateToken,
   updateUser
 } from "../../utils/api";
+
 import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
+// export type TUser = {
+//   email?: string,
+//   name?: string,
+//   password?: string,
+//   accessToken?: string,
+//   refreshToken?: string,
+// }
 
-
-export type TUserState = {
-  isAuth: boolean;
-  data?: {
-    email?: string;
-    name?: string;
-    password?: string;
-  } | null;
-}
+// export type TUser = {
+//   success: boolean,
+//   user: {
+//       name: string,
+//       email: string,
+//   }
+// }
 
 const sliceName = 'user' 
-
-export interface IUserData {
-  email?: string ;
-  password?: string;
-}
 
 export interface IDataUser {
   email?: string;

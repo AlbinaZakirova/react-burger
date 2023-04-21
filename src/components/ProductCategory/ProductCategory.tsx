@@ -1,4 +1,4 @@
-import {forwardRef} from "react";
+import {forwardRef, ForwardedRef} from "react";
 import classnames from 'classnames';
 import style from './ProductCategory.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
@@ -12,7 +12,7 @@ interface IProductCategory {
   ingredients: TIngredientType[];
 }
 
-const ProductCategory = forwardRef(({ title, id, ingredients}: IProductCategory, ref:any) => {
+const ProductCategory = forwardRef(({ title, id, ingredients}: IProductCategory, ref:ForwardedRef<HTMLDivElement>) => {
   const dispatch = useAppDispatch();
   
   const setIngredientInModalHandler = (ingredient: object) =>

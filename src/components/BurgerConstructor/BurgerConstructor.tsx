@@ -43,10 +43,11 @@ const BurgerConstructor = () => {
       return;
     }
     setOrderWindow(true)
-    dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))  
+    dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))   
     dispatch(clearConstructor())
   }
 
+  
   const [{isHover}, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(itemId, monitor) {
@@ -78,7 +79,7 @@ const BurgerConstructor = () => {
           />}
       </div>
       <div className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
-        {ingredients.map((data: any, index: any) =>
+        {ingredients.map((data: any, index: number) =>
           <ConstructorElementWrap
             key={data.uuid}
             ingredient={data}

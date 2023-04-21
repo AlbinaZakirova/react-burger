@@ -55,6 +55,7 @@ export const constructorSlice = createSlice({
       state.ingredients = [];
     },
 
+
     moveElement: (state, action) => {
       let res = [...state.ingredients]
       let start = action.payload[0]

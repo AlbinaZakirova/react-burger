@@ -1,12 +1,19 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent } from "react";
+import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent, FC } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
 
+interface User {
+  email: string;
+  name: string;
+  password: string;
+}
 
-const ProfileHome = () => {
+
+
+const ProfileHome: FC = () => {
 
   const dispatch = useAppDispatch();
 
@@ -19,7 +26,7 @@ const ProfileHome = () => {
     setIsButtonsShow(!isChanged);
   }
 
-  const [userData, setUserData] = useState( {
+  const [userData, setUserData] = useState<User>( {
     email: user?.email,
     name: user?.name,
     password: user?.password,
@@ -30,7 +37,7 @@ const ProfileHome = () => {
   }, [userData])
 
   useEffect(() => {
-    isUserDataGot && setUserData({email: user?.email, name: user?.name})
+    isUserDataGot && setUserData({email: user?.email, name: user?.name, password: user?.password})
   }, [isUserDataGot])
 
   const handleChange = (e: ChangeEvent  <HTMLInputElement>) => {
