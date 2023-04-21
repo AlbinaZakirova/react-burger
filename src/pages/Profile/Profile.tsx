@@ -5,6 +5,7 @@ import ProfileHome from './ProfileHome/ProfileHome';
 import { useEffect } from 'react';
 import { exitUser, getUserData } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { isObjEmpty } from '../../utils/utils';
 
 const Profile = () => {
 
@@ -15,7 +16,7 @@ const Profile = () => {
   const {user, isExited} = useAppSelector(state => state.userStore); 
 
   useEffect(() => {
-    !user && dispatch(getUserData())
+    isObjEmpty(user) && dispatch(getUserData())
   }, [user])
 
   useEffect(() => {

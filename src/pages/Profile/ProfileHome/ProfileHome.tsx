@@ -4,7 +4,7 @@ import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent, FC } f
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
-// import rootReducer from "../../../services/reducers";
+
 
 const ProfileHome: FC = () => {
 
