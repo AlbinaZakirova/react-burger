@@ -1,7 +1,14 @@
 import { Dispatch, ReactNode, ReactElement } from "react"
 
+export type TDataUser = {
+  email?: string;
+  name?: string;
+  password?: string;
+  
+}
+
 export type TUserState = {
-  user: boolean | null;
+  user: TDataUser | null;
   isAuth: boolean | false;
   isLogin: boolean | null;
   isRegistered: boolean | null;
@@ -11,8 +18,6 @@ export type TUserState = {
   isUserDataUpdated: boolean | null;
   isUserForgotPassword: boolean | null; 
 }
-
-
 
 export type TIngredientType = {
   __v: number,

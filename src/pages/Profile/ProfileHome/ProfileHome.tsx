@@ -5,14 +5,6 @@ import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
 
-interface User {
-  email: string;
-  name: string;
-  password: string;
-}
-
-
-
 const ProfileHome: FC = () => {
 
   const dispatch = useAppDispatch();
@@ -26,10 +18,10 @@ const ProfileHome: FC = () => {
     setIsButtonsShow(!isChanged);
   }
 
-  const [userData, setUserData] = useState<User>( {
+  const [userData, setUserData] = useState({
     email: user?.email,
     name: user?.name,
-    password: user?.password,
+    password: user?.password, 
   })
 
   useEffect(() => {
@@ -56,7 +48,7 @@ const ProfileHome: FC = () => {
 
   const cancelHandler = () => {
     if (user) {
-      setUserData({ ...user });
+      setUserData({email: user?.email, name: user?.name, password: user?.password});
     }
   };
 

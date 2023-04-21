@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 const BurgerConstructor = () => {
   const urlImageLoader = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
   const {isAuth} = useAppSelector(state => state.userStore);
 

@@ -10,7 +10,7 @@ const initialState: TOrderState = {
 
 export const sendOrder = createAsyncThunk(
   'order/makeOrder',
-  async (orderIds, {rejectWithValue}) => {
+  async (orderIds:any[], {rejectWithValue}) => {
     try {
       const res = await makeOrder(orderIds);
       if (!res) {

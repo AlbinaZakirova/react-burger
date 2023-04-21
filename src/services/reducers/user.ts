@@ -10,21 +10,16 @@ import {
 } from "../../utils/api";
 
 import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
-// export type TUser = {
-//   email?: string,
-//   name?: string,
-//   password?: string,
-//   accessToken?: string,
-//   refreshToken?: string,
-// }
+import { TUserState } from "../../utils/types/types";
 
-// export type TUser = {
-//   success: boolean,
-//   user: {
-//       name: string,
-//       email: string,
-//   }
-// }
+export type TUser = {
+  success: boolean,
+  user: {
+      name?: string,
+      email?: string,
+      password?: string,
+  }
+}
 
 const sliceName = 'user' 
 
@@ -39,8 +34,8 @@ export interface IErrorResponse {
   statusCode?: number;
 }
 
-const initialState = {
-  user: null,
+const initialState : TUserState = {
+  user: {},
   isAuth: false,
   isLogin: null,
   isRegistered: null,
@@ -222,7 +217,7 @@ export const userSlice = createSlice({
         state.isAuth = true;
       })
       .addCase(exitUser.fulfilled, (state, action) => {
-        state.user = null;
+        state.user = {};
         state.isExited = action.payload.success;
         state.isAuth = false;
       })
