@@ -1,21 +1,21 @@
 import { useState,useMemo, useEffect } from 'react';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useInView } from 'react-intersection-observer';
 import classnames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
 import ProductCategory from '../ProductCategory/ProductCategory';
+import { useAppSelector } from '../../utils/types/hooks';
 
 
 const BurgerIngredients = () => {
   
   const [current, setCurrent] = useState('buns');
-  const { data: ingredients, error, isLoading } = useSelector(state => state.ingredientsStore);
-  const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'),[ingredients]) ;
-  const main = useMemo(() => ingredients.filter(item => item.type === 'main'),[ingredients]) ;
-  const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'),[ingredients]) ;
+  const { data: ingredients, error, isLoading } = useAppSelector(state => state.ingredientsStore);
+  const buns = useMemo(() => ingredients.filter((item: { type: string }) => item.type === 'bun'),[ingredients]) ;
+  const main = useMemo(() => ingredients.filter((item: { type: string }) => item.type === 'main'),[ingredients]) ;
+  const sauce = useMemo(() => ingredients.filter((item: { type: string }) => item.type === 'sauce'),[ingredients]) ;
   
-  function handleClick(tab) {
+  function handleClick(tab:string) {
     setCurrent(tab);
     const title = document.getElementById(tab);
     if (title) title.scrollIntoView({ behavior: "smooth" })

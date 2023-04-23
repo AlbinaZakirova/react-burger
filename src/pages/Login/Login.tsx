@@ -1,47 +1,41 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Login.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
 import { signInUser } from '../../services/reducers/user';
-
+import { useAppDispatch } from '../../utils/types/hooks';
 
 const Login = () => {
   
-
-  const dispatch = useDispatch();
-
-  
+  const dispatch = useAppDispatch();
 
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   })
- 
-  const handleChange = (e) => {
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
       [name]: value
-    });
+    }); 
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     if (!userData.email || !userData.password) {
       return null;
     }
     dispatch(signInUser(userData))
-    
   }
 
-  
   return (
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className="loginForm">
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Вход</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}>
           <EmailInput
             onChange={(e) => handleChange(e)}
             value={userData.email}

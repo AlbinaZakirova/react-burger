@@ -1,28 +1,31 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { ChangeEvent, useState, SyntheticEvent, FC } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
+import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
 
-const ProfileHome = () => {
 
-  const dispatch = useDispatch();
+const ProfileHome: FC = () => {
 
-  const {user, isUserDataGot} = useSelector(state => state.userStore)
+  const dispatch = useAppDispatch();
+  
+  const {user, isUserDataGot} = useAppSelector(state => state.userStore)
 
   const [isButtonsShow, setIsButtonsShow] = useState(false)
 
   const changeTracking = () => {
-    const isChanged = user && Object.entries(user).every(field => userData[field[0]] === field[1])
+    const isChanged = JSON.stringify(user) === JSON.stringify(userData)
     setIsButtonsShow(!isChanged);
   }
 
-  const [userData, setUserData] = useState( {
+
+  const [userData, setUserData] = useState({
     email: user?.email,
     name: user?.name,
+    
   })
-
+  
   useEffect(() => {
     changeTracking()
   }, [userData])
@@ -31,7 +34,7 @@ const ProfileHome = () => {
     isUserDataGot && setUserData({email: user?.email, name: user?.name})
   }, [isUserDataGot])
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent  <HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -39,19 +42,21 @@ const ProfileHome = () => {
     }); 
   }
 
-  const saveHandler = (e) => {
+  const saveHandler = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    dispatch(updateUserData(userData));
+    dispatch(updateUserData(userData)); 
     setIsButtonsShow(false);
   }
 
   const cancelHandler = () => {
-    setUserData({...user})
-  }
+    if (user) {
+      setUserData({email: user?.email, name: user?.name});
+    }
+  };
 
   return (
     <form className={style.loginForm}>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
+      <div className={style.profile__block}> 
         <Input
           type={'text'}
           placeholder={'Имя'}
@@ -62,7 +67,6 @@ const ProfileHome = () => {
           errorText={'Ошибка'}
           size={'default'}
           extraClass="mb-6"
-          icon="EditIcon"
         />
         <EmailInput
           onChange={(e) => handleChange(e)}
@@ -70,11 +74,10 @@ const ProfileHome = () => {
           name={'email'}
           isIcon={false}
           extraClass="mb-6"
-          icon="EditIcon"
         />
         <PasswordInput
           onChange={(e) => handleChange(e)}
-          value={userData?.password || ''}
+          value={''}
           name={'password'}
           icon="EditIcon"
         />

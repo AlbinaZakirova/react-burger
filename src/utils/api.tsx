@@ -1,25 +1,43 @@
 import {getItemByKey} from "./localStorage";
 
-
-const checkResponse = (res) => {
-  return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
+export interface ILoginUser {
+  email?: string;
+  name?: string;
+  password?: string;
+  other?: any;
 }
+
+export interface IUpdateUser {
+  email?: string;
+  password?: number;
+}
+
+
+const checkResponse = (res:Response) => {
+  return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err))
+}
+
 
 const API_URL = 'https://norma.nomoreparties.space/api';
 
-const request = async (endpoint, options) =>
+type TRequestProps = (
+  endpoint: string,
+  options?: RequestInit,
+) => any;
+
+const request: TRequestProps = async (endpoint, options) =>
   await fetch(`${API_URL}/${endpoint}`, options)
     .then(checkResponse)
 
 export const getIngredients = async () =>
   await request('ingredients')
-    .then(res => {
+    .then((res:any) => {
       if (res.success) {
         return res.data
       }
     })
 
-export const makeOrder = async ingredientIds =>
+export const makeOrder = async (ingredientIds:any) =>
   await request('orders', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -27,13 +45,13 @@ export const makeOrder = async ingredientIds =>
       ingredients: ingredientIds
     })
   })
-    .then(res => {
+    .then((res:any) => {
       if (res.success) {
         return res
       }
     })
 
-export const resetPassword = async email =>
+export const resetPassword = async (email: string,) =>
   await request('password-reset', {
     method: 'POST',
     headers: {
@@ -44,7 +62,7 @@ export const resetPassword = async email =>
     })
   });
 
-export const recoveryPassword = async data =>
+export const recoveryPassword = async (data: ILoginUser) =>
   await request('password-reset/reset', {
     method: 'POST',
     headers: {
@@ -55,7 +73,7 @@ export const recoveryPassword = async data =>
     )
   });
 
-export const registrationUser = async (data) =>
+export const registrationUser = async (data: ILoginUser) =>
   await request('auth/register', {
     method: "POST",
     headers: {
@@ -64,7 +82,7 @@ export const registrationUser = async (data) =>
     body: JSON.stringify(data),
   })
 
-export const loginUser = async (data) =>
+export const loginUser = async (data: ILoginUser) =>
   await request('auth/login', {
     method: "POST",
     headers: {
@@ -82,7 +100,7 @@ export const updateToken = async () =>
     body: JSON.stringify({token: getItemByKey('refreshToken')}),
   })
 
-export const logoutUser = async (token) =>
+export const logoutUser = async (token: string) =>
   await request('auth/logout', {
     method: "POST",
     headers: {
@@ -100,7 +118,7 @@ export const getUser = async () =>
     }
   })
 
-export const updateUser = async (userData) =>
+export const updateUser = async (userData: IUpdateUser) =>
   await request('auth/user', {
     method: "PATCH",
     headers: {

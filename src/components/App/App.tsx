@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import AppHeader from "../AppHeader/AppHeader";
 import style from './App.module.css';
 import {fetchIngredients} from '../../services/reducers/ingredients';
-import {useDispatch} from 'react-redux/es/exports';
 import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Registration from '../../pages/Register/Register';
@@ -14,10 +13,10 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
-
+import { useAppDispatch } from '../../utils/types/hooks';
 
 export const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state?.background;
@@ -32,18 +31,16 @@ export const App = () => {
 
   return (
     <div className={style.app}>
-      <AppHeader/>
+      <AppHeader />
       <Routes location={background || location}>
         <Route path="/login" element={<ProtectedRoute isForNotAuthUser> <Login/> </ProtectedRoute>}/>
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
-        <Route path="/profile/orders" element={<ProtectedRoute> <Profile/> </ProtectedRoute>}/>
-        <Route path="/profile" element={<ProtectedRoute> <Profile/> </ProtectedRoute>}/>
-        <Route path="/ingredient/:idIngredient"
-               element={<ProtectedRoute><IngredientDetails/> </ProtectedRoute>}/>
+        <Route path="/profile/orders" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
+        <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
+        <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
         <Route path="/" element={<MainPage/>}/>
-
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (
@@ -51,17 +48,16 @@ export const App = () => {
           <Route
             path="/ingredient/:idIngredient"
             element={
-              <ProtectedRoute>
                 <Modal onClose={handleCloseModal}>
                   <IngredientDetails/>
                 </Modal>
-              </ProtectedRoute>
+                
             }
           />
         </Routes>
       )}
     </div>
   );
-}  
+}   
  
 

@@ -8,13 +8,34 @@ import {
   updateToken,
   updateUser
 } from "../../utils/api";
+
 import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
+import { TUserState } from "../../utils/types/types";
 
+export type TUser = {
+  success: boolean,
+  user: {
+      name?: string,
+      email?: string,
+      password?: string,
+  }
+}
 
-const sliceName = 'user'
+export const sliceName = 'user' 
 
-const initialState = {
-  user: null,
+export interface IDataUser {
+  email?: string;
+  name?: string;
+  other?: any;
+}
+
+export interface IErrorResponse {
+  message: string;
+  statusCode?: number;
+}
+
+const initialState : TUserState = {
+  user: {},
   isAuth: false,
   isLogin: null,
   isRegistered: null,
@@ -25,18 +46,20 @@ const initialState = {
   isUserForgotPassword: null
 }
 
+
 export const forgotPassword = createAsyncThunk(
   `${sliceName}/forgotPassword`,
-  async (email, {rejectWithValue}) => {
+  async (email:string, {rejectWithValue}) => {
     try {
       const res = await resetPassword(email);
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных');
       }
       return res;
-    } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+    } catch (error: unknown) {
+      const err = error as IErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -45,18 +68,19 @@ export const forgotPassword = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   `${sliceName}/registerUser`,
-  async (dataUser, {rejectWithValue}) => {
+  async (dataUser: IDataUser, {rejectWithValue}) => {
     try {
       const res = await registrationUser(dataUser);
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       setItemByKey('accessToken', res.accessToken)
       setItemByKey('refreshToken', res.refreshToken)
       return res;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as IErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -66,18 +90,19 @@ export const registerUser = createAsyncThunk(
 
 export const signInUser = createAsyncThunk(
   `${sliceName}/loginUser`,
-  async (dataUser, {rejectWithValue}) => {
+  async (dataUser: IDataUser, {rejectWithValue}) => {
     try {
       const res = await loginUser(dataUser);
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       setItemByKey('accessToken', res.accessToken)
       setItemByKey('refreshToken', res.refreshToken)
       return res;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as IErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -90,14 +115,15 @@ export const exitUser = createAsyncThunk(
     try {
       const res = await logoutUser(getItemByKey('refreshToken'));
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       deleteItemByKey('accessToken')
       deleteItemByKey('refreshToken')
       return res;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as IErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -110,12 +136,13 @@ export const updateAccessToken = createAsyncThunk(
     try {
       const res = await updateToken();
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       return res;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as IErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -128,16 +155,17 @@ export const getUserData = createAsyncThunk(
     try {
       const res = await getUser();
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       return res;
     } catch (error) {
-      if (error.message === 'jwt expired') {
+      const err = error as IErrorResponse;
+      if (err.message === 'jwt expired') {
         dispatch(updateAccessToken())
         dispatch(getUserData())
       }
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -146,20 +174,21 @@ export const getUserData = createAsyncThunk(
 
 export const updateUserData = createAsyncThunk(
   `${sliceName}/updateUserData`,
-  async (userData, {rejectWithValue, dispatch}) => {
+  async (userData: IDataUser, {rejectWithValue, dispatch}) => {
     try {
       const res = await updateUser(userData);
       if (!res) {
-        throw new Error({message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       return res;
     } catch (error) {
-      if (error.message === 'jwt expired') {
+      const err = error as IErrorResponse;
+      if (err.message === 'jwt expired') {
         dispatch(updateAccessToken())
         dispatch(updateUserData(userData))
       }
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({message: 'Ошибка на стороне сервера'})
     }
@@ -188,7 +217,7 @@ export const userSlice = createSlice({
         state.isAuth = true;
       })
       .addCase(exitUser.fulfilled, (state, action) => {
-        state.user = null;
+        state.user = {};
         state.isExited = action.payload.success;
         state.isAuth = false;
       })

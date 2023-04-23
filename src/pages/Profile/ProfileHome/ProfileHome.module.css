@@ -10,3 +10,8 @@
   flex-direction: row;
   gap: 8px;
 }
+
+.profile__block {
+  display: flex;
+  flex-direction: column;
+}

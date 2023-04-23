@@ -2,27 +2,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './ForgotPassword.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { forgotPassword } from '../../services/reducers/user';
+import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const dispatch = useDispatch();
-  const {isUserForgotPassword} = useSelector(state => state.userStore);
+  const dispatch = useAppDispatch();
+  const {isUserForgotPassword} = useAppSelector(state => state.userStore);
 
-  const handleChange = (e) => 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => 
   setEmail(e.target.value)
 
-  const resetPasswordHandler = (e) => {
+  const resetPasswordHandler = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     dispatch(forgotPassword(email))
   }
 
   useEffect (() => {
-    isUserForgotPassword && navigate('/reset-password')
+    isUserForgotPassword && navigate('/reset-password') 
   },[isUserForgotPassword])
 
 
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     <div className={style.loginContainer}>
       <form className="loginForm" onSubmit={resetPasswordHandler}>
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Восстановление пароля</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}> 
           <EmailInput
             onChange={handleChange}
             value={email}

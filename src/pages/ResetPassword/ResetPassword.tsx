@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './ResetPassword.module.css';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { ChangeEvent, useState, FormEvent } from 'react';
 import { recoveryPassword } from '../../utils/api';
 
 
@@ -13,7 +13,7 @@ const ResetPassword = () => {
     token: '',
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setresetData({
       ...resetData,
@@ -21,7 +21,7 @@ const ResetPassword = () => {
     }); 
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     recoveryPassword(resetData)
       .then((res) => res.success && navigate('/login'))
@@ -32,9 +32,9 @@ const ResetPassword = () => {
     <div className={style.loginContainer}>
       <form onSubmit={onSubmit} className="loginForm">
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Восстановление пароля</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}>
           <Input
-            placeholder={'Введите код из письма'}
+            placeholder={'Введите код из письма'} 
             onChange={(e) => handleChange(e)}
             value={resetData.token}
             name={'token'}

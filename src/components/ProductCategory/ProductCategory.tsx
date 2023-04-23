@@ -1,19 +1,22 @@
-import {forwardRef} from "react";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import {forwardRef, ForwardedRef} from "react";
 import classnames from 'classnames';
-import PropTypes from "prop-types";
 import style from './ProductCategory.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import { setCurrentIngredient } from '../../services/reducers/currentIngredient';
-import ingredientPropType from '../../utils/prop-types';
+import { useAppDispatch } from "../../utils/types/hooks";
+import { TIngredientType } from "../../utils/types/types";
 
-const ProductCategory = forwardRef(({ title, id, ingredients}, ref) => {
-  const dispatch = useDispatch();
+interface IProductCategory {
+  title: string;
+  id: string;
+  ingredients: TIngredientType[];
+}
+
+const ProductCategory = forwardRef(({ title, id, ingredients}: IProductCategory, ref:ForwardedRef<HTMLDivElement>) => {
+  const dispatch = useAppDispatch();
   
-  const setIngredientInModalHandler = ingredient =>
+  const setIngredientInModalHandler = (ingredient: object) =>
     dispatch(setCurrentIngredient(ingredient))
-  
   
   return (
     <>
@@ -29,16 +32,10 @@ const ProductCategory = forwardRef(({ title, id, ingredients}, ref) => {
           />
         )}
       </div>
-      
     </>
   )
 })
 
-ProductCategory.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
-}
 
 export default ProductCategory;
 

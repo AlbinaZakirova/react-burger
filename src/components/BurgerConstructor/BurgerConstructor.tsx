@@ -1,6 +1,4 @@
 import {useState, useMemo} from 'react';
-import {useSelector} from 'react-redux/es/hooks/useSelector';
-import {useDispatch} from "react-redux/es/hooks/useDispatch";
 import {useDrop} from 'react-dnd/dist/hooks/useDrop';
 import classnames from 'classnames';
 import { Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
@@ -10,22 +8,22 @@ import Modal from '../Modal/Modal';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
 import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
 const BurgerConstructor = () => {
   const urlImageLoader = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {isAuth} = useSelector(state => state.userStore);
+  const {isAuth} = useAppSelector(state => state.userStore);
 
-  const {bun, ingredients} = useSelector(state => state.constructorStore);
+  const {bun, ingredients} = useAppSelector(state => state.constructorStore);
 
-  const [orderWindow, setOrderWindow] = useState(null);
-  const {orderData} = useSelector(state => state.orderStore)
+  const [orderWindow, setOrderWindow] = useState(false);
+  const {orderData} = useAppSelector(state => state.orderStore)
 
   const sum = useMemo(() => {
-    const priceBun = bun?.price * 2 || 0
+    const priceBun = bun?.price ? bun.price * 2 : 0;
     const ingredientsSum = ingredients.length > 0
       ? ingredients.reduce((acc, ingredient) => acc += ingredient.price, 0)
       : 0
@@ -33,18 +31,22 @@ const BurgerConstructor = () => {
   }, [bun?.price, ingredients.length])
 
   const closeModalWindow = () => {
-    setOrderWindow(null);
+    setOrderWindow(false);
   };
 
   const makeOrderHandler = () => {
     if (!isAuth) {
       return navigate('/login', {replace: true})
     }
+    if (!bun) {
+      return;
+    }
     setOrderWindow(true)
-    dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))
+    dispatch(sendOrder([bun._id, ...ingredients.map(i => i._id)]))   
     dispatch(clearConstructor())
   }
 
+  
   const [{isHover}, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(itemId, monitor) {
@@ -72,10 +74,11 @@ const BurgerConstructor = () => {
             thumbnail={urlImageLoader}
             text={'Выберите булку'}
             isLocked={true}
+            price={0}
           />}
       </div>
       <div className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
-        {ingredients.map((data, index) =>
+        {ingredients.map((data: any, index: number) =>
           <ConstructorElementWrap
             key={data.uuid}
             ingredient={data}
@@ -98,6 +101,7 @@ const BurgerConstructor = () => {
             thumbnail={urlImageLoader}
             text={'Выберите булку'}
             isLocked={true}
+            price={0}
           />}
       </div>
       <div className={style.counter_final}>

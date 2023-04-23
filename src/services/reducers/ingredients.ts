@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" 
 import { getIngredients } from "../../utils/api";
+import { TErrorResponse, TIngredientState, TIngredientType } from "../../utils/types/types";
 
-const initialState = {
+const initialState: TIngredientState = {
   data:[],
   isLoading: false,
   error: null
@@ -9,16 +10,17 @@ const initialState = {
 
 export const fetchIngredients = createAsyncThunk (
   'ingredients/fetchIngredients',
-  async (_, { dispatch, getState, rejectWithValue}) => {
+  async (_, {rejectWithValue}) => {
     try {
       const data = await getIngredients();
       if (!Array.isArray(data)) {
-        throw new Error({ message: 'Ошибка в получении данных', statusCode: 404})
+        throw new Error('Ошибка в получении данных')
       }
       return data;
     } catch (error) {
-      if (error.statusCode) {
-        return rejectWithValue(error);
+      const err = error as TErrorResponse;
+      if (err.statusCode) {
+        return rejectWithValue(err);
       }
       return rejectWithValue({ message: 'Ошибка на стороне сервера' })
     }
@@ -28,6 +30,7 @@ export const fetchIngredients = createAsyncThunk (
 export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
