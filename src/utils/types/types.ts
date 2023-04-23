@@ -77,3 +77,7 @@ export type TErrorResponse = {
   statusCode?: number;
 }
 
+export type wsPayloadConnect = {
+  wsUrl: string;
+  withTokenRefresh: boolean
+}

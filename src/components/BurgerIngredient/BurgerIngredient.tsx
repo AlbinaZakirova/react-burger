@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd/dist/hooks";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './BurgerIngredient.module.css'
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../utils/types/hooks";
+import { useAppSelector } from "../../utils/hooks";
 import { TBurgerIngredient } from "../../utils/types/types";
 
 const BurgerIngredient: FC <TBurgerIngredient>  = ({ingredient, onClick}) => {

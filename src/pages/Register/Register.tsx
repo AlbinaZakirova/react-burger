@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import style from './Register.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { registerUser } from '../../services/reducers/user';
-import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 
 const Registration = () => {

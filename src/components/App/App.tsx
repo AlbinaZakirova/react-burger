@@ -13,10 +13,13 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
-import { useAppDispatch } from '../../utils/types/hooks';
-import FeedPage from '../../pages/FeedPage/FeedPage';
+import { useAppDispatch } from '../../utils/hooks';
+// import FeedPage from '../../pages/FeedPage/FeedPage';
 // import OrderModal from '../OrderModal/OrderModal';
-// import OrdersPage from '../../pages/OrdersPage/OrdersPage';
+import OrdersHistory from '../../pages/OrdersHistory/OrdersHistory';
+import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
+import { wsConnectOrder, wsDisconnectOrder } from '../../services/actions/orderHistoryActions';
+import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +35,15 @@ export const App = () => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
+    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+    return () => {
+      dispatch(wsDisconnectFeed())
+      dispatch(wsDisconnectOrder())
+    }
+  }, []);
+
   return (
     <div className={style.app}>
       <AppHeader />
@@ -41,11 +53,11 @@ export const App = () => {
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
         {/* <Route path='/profile/orders/:id' element={<ProtectedRoute><OrderModal /></ProtectedRoute>} /> */}
-        {/* <Route path='/profile/orders' element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} /> */}
+        <Route path='/profile/orders' element={<ProtectedRoute><OrdersHistory /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
         {/* <Route path='feed/:id' element={<OrderModal />} /> */}
-        <Route path="/feed" element={<FeedPage />} />
+        {/* <Route path="/feed" element={<FeedPage />} /> */}
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>

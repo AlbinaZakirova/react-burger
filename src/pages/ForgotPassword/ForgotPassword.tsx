@@ -4,7 +4,7 @@ import style from './ForgotPassword.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { forgotPassword } from '../../services/reducers/user';
-import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 
 const ForgotPassword = () => {

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import style from './ProductCategory.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import { setCurrentIngredient } from '../../services/reducers/currentIngredient';
-import { useAppDispatch } from "../../utils/types/hooks";
+import { useAppDispatch } from "../../utils/hooks";
 import { TIngredientType } from "../../utils/types/types";
 
 interface IProductCategory {

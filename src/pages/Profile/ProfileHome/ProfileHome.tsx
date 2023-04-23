@@ -3,7 +3,7 @@ import style from "./ProfileHome.module.css";
 import { ChangeEvent, useState, SyntheticEvent, FC } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
-import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 
 
 const ProfileHome: FC = () => {

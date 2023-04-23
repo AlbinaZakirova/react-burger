@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './BurgerIngredients.module.css';
 import ProductCategory from '../ProductCategory/ProductCategory';
-import { useAppSelector } from '../../utils/types/hooks';
+import { useAppSelector } from '../../utils/hooks';
 
 
 const BurgerIngredients = () => {

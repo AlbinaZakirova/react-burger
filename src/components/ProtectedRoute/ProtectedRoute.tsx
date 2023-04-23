@@ -3,7 +3,7 @@ import { Navigate, useLocation} from "react-router-dom";
 import NotFound from "../../pages/NotFound/NotFound";
 import {checkAuthorization} from "../../services/reducers/user";
 import { TProtectedRoute } from '../../utils/types/types';
-import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
   export const ProtectedRoute = ({ isForNotAuthUser, children }: TProtectedRoute): JSX.Element | null => {
   const dispatch = useAppDispatch();

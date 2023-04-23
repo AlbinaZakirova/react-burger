@@ -9,7 +9,7 @@ import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElement
 import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 const BurgerConstructor = () => {
   const urlImageLoader = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'

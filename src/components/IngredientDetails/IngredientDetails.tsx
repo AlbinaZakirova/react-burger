@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import style from './IngredientDetails.module.css';
 import { useParams } from 'react-router-dom';
 import { FC } from 'react';
-import { useAppSelector } from '../../utils/types/hooks';
+import { useAppSelector } from '../../utils/hooks';
 
 const IngredientDetails: FC = () => {
   const {idIngredient} = useParams();

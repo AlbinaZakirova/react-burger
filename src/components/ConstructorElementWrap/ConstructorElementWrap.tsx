@@ -4,7 +4,7 @@ import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';  
 import { moveElement, removeConstructor } from "../../services/reducers/constructor";
 import { TConstructorElementWrap } from '../../utils/types/types';
-import { useAppDispatch } from '../../utils/types/hooks';
+import { useAppDispatch } from '../../utils/hooks';
 
 
 const ConstructorElementWrap: FC <TConstructorElementWrap> = ({ingredient, index}) => {

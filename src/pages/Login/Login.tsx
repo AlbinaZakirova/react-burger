@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import style from './Login.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { signInUser } from '../../services/reducers/user';
-import { useAppDispatch } from '../../utils/types/hooks';
+import { useAppDispatch } from '../../utils/hooks';
 
 const Login = () => {
   
