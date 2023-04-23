@@ -1,6 +1,6 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { ChangeEvent, useState, FormEvent, SyntheticEvent, KeyboardEvent, FC } from "react";
+import { ChangeEvent, useState, SyntheticEvent, FC } from "react";
 import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
 import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
@@ -56,7 +56,7 @@ const ProfileHome: FC = () => {
 
   return (
     <form className={style.loginForm}>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
+      <div className={style.profile__block}> 
         <Input
           type={'text'}
           placeholder={'Имя'}

@@ -1,14 +1,14 @@
 import { FC, useRef } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { useDrag } from 'react-dnd/dist/hooks/useDrag';
-import { useDispatch } from 'react-redux';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'; 
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';  
 import { moveElement, removeConstructor } from "../../services/reducers/constructor";
 import { TConstructorElementWrap } from '../../utils/types/types';
+import { useAppDispatch } from '../../utils/types/hooks';
 
 
 const ConstructorElementWrap: FC <TConstructorElementWrap> = ({ingredient, index}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLInputElement>(null)
   const uuid = ingredient.uuid;
 

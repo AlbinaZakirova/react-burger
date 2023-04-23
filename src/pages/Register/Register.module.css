@@ -33,3 +33,8 @@
   cursor: pointer;
   text-decoration: none
 }
+
+.login__block {
+  display: flex;
+  flex-direction: column;
+}

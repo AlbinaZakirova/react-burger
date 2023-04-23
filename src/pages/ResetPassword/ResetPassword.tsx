@@ -32,9 +32,9 @@ const ResetPassword = () => {
     <div className={style.loginContainer}>
       <form onSubmit={onSubmit} className="loginForm">
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Восстановление пароля</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}>
           <Input
-            placeholder={'Введите код из письма'}
+            placeholder={'Введите код из письма'} 
             onChange={(e) => handleChange(e)}
             value={resetData.token}
             name={'token'}

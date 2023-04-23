@@ -36,14 +36,14 @@ const Registration = () => {
 
 
   useEffect(() => {
-    isRegistered && navigate('/')
+    isRegistered && navigate('/') 
   }, [isRegistered])
 
   return (
     <div className={style.loginContainer}>
       <form className="loginForm" onSubmit={(e) => handleSubmit(e)}>
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Регистрация</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}>
           <Input
             id="username"
             type={'text'}

@@ -35,7 +35,7 @@ const Login = () => {
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className="loginForm">
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Вход</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}>
           <EmailInput
             onChange={(e) => handleChange(e)}
             value={userData.email}

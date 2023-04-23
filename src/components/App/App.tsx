@@ -39,7 +39,7 @@ export const App = () => {
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
         <Route path="/profile/orders" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
-        <Route path="/ingredient/:idIngredient" element={<ProtectedRoute ><IngredientDetails/></ProtectedRoute>}/>
+        <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
@@ -48,11 +48,9 @@ export const App = () => {
           <Route
             path="/ingredient/:idIngredient"
             element={
-              <ProtectedRoute >
                 <Modal onClose={handleCloseModal}>
                   <IngredientDetails/>
                 </Modal>
-              </ProtectedRoute>
                 
             }
           />

@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     <div className={style.loginContainer}>
       <form className="loginForm" onSubmit={resetPasswordHandler}>
         <p className={classnames(style.login__title, 'text text_type_main-medium mb-6')}>Восстановление пароля</p>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={style.login__block}> 
           <EmailInput
             onChange={handleChange}
             value={email}

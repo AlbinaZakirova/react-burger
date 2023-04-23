@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
 import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
 
 const BurgerConstructor = () => {
