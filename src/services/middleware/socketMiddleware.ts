@@ -3,6 +3,7 @@ import { ActionCreatorWithOptionalPayload, ActionCreatorWithPayload, ActionCreat
 import {TOrderList} from "../reducers/orderHistory";
 import { setItemByKey } from '../../utils/localStorage';
 import { updateToken } from '../../utils/api';
+import { getAccessTokenForWs } from '../../utils/utils';
 
 type TWsActions = {
     wsConnect: ActionCreatorWithPayload<wsPayloadConnect>;
@@ -29,7 +30,7 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
                 wsUrl = action.payload.wsUrl;
                 withTokenRefresh = action.payload.withTokenRefresh;
 
-                socket = new WebSocket(`${wsUrl}`);
+                socket = new WebSocket(`${wsUrl}${withTokenRefresh ? `?token=${getAccessTokenForWs()}` : ''}`);
                 isConnected = true;
                 dispatch(wsConnecting())
             }
@@ -58,13 +59,13 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
                 socket.onmessage = event => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    if (withTokenRefresh && parsedData.message === 'Invalid or missing token') {
+                    if (withTokenRefresh && parsedData.message === 'Invalid or missing token1') {
                       updateToken()
                             .then(refreshData => {
                                 setItemByKey('refreshToken', refreshData.refreshToken);
                                 setItemByKey('accessToken', refreshData.accessToken);
                                 const newWsUrl = new URL(wsUrl);
-                                newWsUrl.searchParams.set("token", refreshData.accessToken.replace("Bearer ", ""))
+                                newWsUrl.searchParams.set("token", getAccessTokenForWs());
                                 dispatch(wsConnect({ wsUrl: newWsUrl.href.toString(), withTokenRefresh }))
                             })
                             .catch((err) => {
@@ -75,8 +76,7 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
                 };
             }
 
-            if (wsClose && socket) {
-                console.log('test')
+            if (wsDisconnect.match(action) && socket) {
                 clearTimeout(reconnectTimer);
                 isConnected = false;
                 reconnectTimer = 0;
