@@ -14,6 +14,9 @@ import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/types/hooks';
+import FeedPage from '../../pages/FeedPage/FeedPage';
+// import OrderModal from '../OrderModal/OrderModal';
+// import OrdersPage from '../../pages/OrdersPage/OrdersPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +40,12 @@ export const App = () => {
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
-        <Route path="/profile/orders" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
+        {/* <Route path='/profile/orders/:id' element={<ProtectedRoute><OrderModal /></ProtectedRoute>} /> */}
+        {/* <Route path='/profile/orders' element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} /> */}
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
+        {/* <Route path='feed/:id' element={<OrderModal />} /> */}
+        <Route path="/feed" element={<FeedPage />} />
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
@@ -48,12 +54,27 @@ export const App = () => {
           <Route
             path="/ingredient/:idIngredient"
             element={
-                <Modal onClose={handleCloseModal}>
-                  <IngredientDetails/>
-                </Modal>
-                
+              <Modal onClose={handleCloseModal}>
+                <IngredientDetails/>
+              </Modal>
             }
           />
+          {/* <Route 
+            path='feed/:id' 
+            element={
+              <Modal onClose={handleCloseModal}>
+                <OrderModal />
+             </Modal>
+            } 
+          /> */}
+          {/* <Route 
+            path='profile/orders/:id' 
+            element={
+             <Modal onClose={handleCloseModal}>
+                <OrderModal />
+              </Modal>
+            } 
+          /> */}
         </Routes>
       )}
     </div>
