@@ -32,6 +32,7 @@ const OrderTemplate: FC<TOrderTemplate> = ({ order }) => {
                     <p className={style.date}>{`${CurrentDate}, ${dateFormat(dateFormatCurrent)}`}</p>
                 </div>
                 <h3 className='text text_type_main-medium'>{order?.name}</h3>
+                <p className={`${style.status} text text_type_main-default mt-3`}>{order?.status === 'done' ? 'Выполнен' : 'Готовится'}</p>
                 <div className={style.bottom}>
                     <ul className={style.images}>
                         {orderIngredientsForImage.map((image) => {
