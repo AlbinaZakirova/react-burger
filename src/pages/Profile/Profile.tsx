@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { exitUser, getUserData } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { isObjEmpty } from '../../utils/utils';
-import OrdersHistory from '../OrdersHistory/OrdersHistory';
+import OrdersHistory from './OrdersHistory/OrdersHistory';
 
 const Profile = () => {
 

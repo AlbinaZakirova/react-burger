@@ -16,10 +16,11 @@ import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/hooks';
 // import FeedPage from '../../pages/FeedPage/FeedPage';
 // import OrderModal from '../OrderModal/OrderModal';
-import OrdersHistory from '../../pages/OrdersHistory/OrdersHistory';
+// import OrdersHistory from '../../pages/OrdersHistory/OrdersHistory';
 import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
 import { wsConnectOrder, wsDisconnectOrder } from '../../services/actions/orderHistoryActions';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
+import OrderModal from '../OrderModal/OrderModal';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -52,8 +53,8 @@ export const App = () => {
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
-        {/* <Route path='/profile/orders/:id' element={<ProtectedRoute><OrderModal /></ProtectedRoute>} /> */}
-        <Route path='/profile/orders' element={<ProtectedRoute><OrdersHistory /></ProtectedRoute>} />
+        <Route path='/profile/orders/:id' element={<ProtectedRoute><OrderModal /></ProtectedRoute>} />
+        <Route path='/profile/orders' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
         {/* <Route path='feed/:id' element={<OrderModal />} /> */}
@@ -71,22 +72,22 @@ export const App = () => {
               </Modal>
             }
           />
-          {/* <Route 
+          <Route 
             path='feed/:id' 
             element={
               <Modal onClose={handleCloseModal}>
                 <OrderModal />
              </Modal>
             } 
-          /> */}
-          {/* <Route 
+          />
+          <Route 
             path='profile/orders/:id' 
             element={
              <Modal onClose={handleCloseModal}>
                 <OrderModal />
               </Modal>
             } 
-          /> */}
+          />
         </Routes>
       )}
     </div>

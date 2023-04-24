@@ -69,7 +69,7 @@ const ProfileHome: FC = () => {
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e)} 
           value={userData?.email || ''}
           name={'email'}
           isIcon={false}

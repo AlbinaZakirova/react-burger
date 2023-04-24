@@ -42,7 +42,10 @@ export const getIngredients = async () =>
 export const makeOrder = async (ingredientIds:any) =>
   await request('orders', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: getItemByKey('accessToken')
+    },
     body: JSON.stringify({
       ingredients: ingredientIds
     })

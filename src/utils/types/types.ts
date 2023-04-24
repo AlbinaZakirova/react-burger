@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, ReactElement } from "react"
+import { TOrder } from "../../services/reducers/feed";
 
 export type TDataUser = {
   email?: string;
@@ -80,4 +81,15 @@ export type TErrorResponse = {
 export type wsPayloadConnect = {
   wsUrl: string;
   withTokenRefresh: boolean
+}
+
+export type TOptionsDate = {
+  timezone: 'Moscow',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZoneName: "short",
+}
+
+export type TOrderTemplate = {
+  order: TOrder;
 }
