@@ -1,15 +1,14 @@
-import React from 'react';
-import styles from './pages.module.css'
+import styles from './FeedPage.module.css'
 import OrderFeed from '../../components/OrderFeed/OrderFeed';
 import OrderWaiter from '../../components/OrderWaiter/OrderWaiter';
 
 const FeedPage = () => {
-    return (
-        <main className={styles.BigPageContent}>
-            <OrderFeed />
-            <OrderWaiter />
-        </main>
-    );
+  return (
+    <main className={styles.feedPage__container}>
+      <OrderFeed />
+      <OrderWaiter />
+    </main>
+  );
 };
 
-export default FeedPage;
+export default FeedPage; 

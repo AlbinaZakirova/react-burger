@@ -1,8 +1,8 @@
+import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
-import style from './ForgotPassword.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
+import style from './ForgotPassword.module.css';
 import { forgotPassword } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 

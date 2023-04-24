@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 import style from './Register.module.css';
-import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { registerUser } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-
 
 const Registration = () => {
 
@@ -13,7 +12,6 @@ const Registration = () => {
   const navigate = useNavigate();
   const {isRegistered} = useAppSelector(state => state.userStore);
   
-
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -28,12 +26,10 @@ const Registration = () => {
     });
   }
 
-
   const handleSubmit = (e: FormEvent <HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser(userData)); 
   }
-
 
   useEffect(() => {
     isRegistered && navigate('/') 

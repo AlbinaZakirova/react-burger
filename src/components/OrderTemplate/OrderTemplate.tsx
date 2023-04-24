@@ -8,7 +8,7 @@ import { dateFormat, dateWhen } from '../../utils/utils';
 
 function inNotUndefined<T>(item: T | undefined): item is T {
     return item !== undefined
-};
+}; 
 
 const OrderTemplate: FC<TOrderTemplate> = ({ order }) => {
     const location = useLocation()
@@ -26,15 +26,15 @@ const OrderTemplate: FC<TOrderTemplate> = ({ order }) => {
     const dateFormatCurrent = order.createdAt.toString()
     return (
         <Link to={{ pathname: location.pathname === '/feed' ? `/feed/${order._id}` : `/profile/orders/${order._id}` }} state={{ background: location }} className={style.link}>
-            <li className={style.container}>
-                <div className={style.number}>
+            <li className={style.order_container}>
+                <div className={style.order_number}>
                     <p className='text text_type_digits-default'>#{order?.number}</p>
                     <p className={style.date}>{`${CurrentDate}, ${dateFormat(dateFormatCurrent)}`}</p>
                 </div>
                 <h3 className='text text_type_main-medium'>{order?.name}</h3>
-                <p className={`${style.status} text text_type_main-default mt-3`}>{order?.status === 'done' ? 'Выполнен' : 'Готовится'}</p>
+                <p className='text text_type_main-default mt-3'>{order?.status === 'done' ? 'Выполнен' : 'Готовится'}</p>
                 <div className={style.bottom}>
-                    <ul className={style.images}>
+                    <ul className={style.order_images}>
                         {orderIngredientsForImage.map((image) => {
                             return <li className={style.image__container} key={image._id}>
                                 <img src={image.image_mobile} className={style.image} alt={image.name} />

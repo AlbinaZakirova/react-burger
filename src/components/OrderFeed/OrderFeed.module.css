@@ -1,11 +1,16 @@
-.container {
-  max-width: 600px;
-  width: 100%;
-}
-
-.orderFeed {
+.orderFeed__container {
   display: flex;
   flex-direction: column;
+  width: 584px;
+  padding-top: 40px;
+  margin: 0 auto;
+}
+
+.orderFeed__all {
+  
+  display: flex;
+  flex-direction: column;
+  width: 584px;
   gap: 16px;
   list-style: none;
   margin: 0;
@@ -14,6 +19,6 @@
   overflow-y: auto;
 }
 
-.article {
-  padding-right: 8px;
+.orderFeed__title {
+  max-width: 584px; 
 }

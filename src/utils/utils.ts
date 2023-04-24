@@ -27,6 +27,5 @@ export const dateFormat = (date: string) => {
       minute: 'numeric',
       timeZoneName: "short",
   }
-
   return new Date(Date.parse(date)).toLocaleString("ru", options)
 }

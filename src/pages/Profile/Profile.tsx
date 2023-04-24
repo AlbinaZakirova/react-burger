@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import style from './Profile.module.css';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import ProfileHome from './ProfileHome/ProfileHome';
-import { useEffect } from 'react';
 import { exitUser, getUserData } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { isObjEmpty } from '../../utils/utils';
@@ -54,7 +54,7 @@ const Profile = () => {
   )
 }
 
-export default Profile;
+export default Profile; 
  
 
 

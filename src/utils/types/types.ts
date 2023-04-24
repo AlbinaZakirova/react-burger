@@ -5,7 +5,6 @@ export type TDataUser = {
   email?: string;
   name?: string;
   password?: string;
-  
 }
 
 export type TUserState = {
@@ -44,8 +43,7 @@ export type TBurgerIngredient = {
 
 export type TProtectedRoute = {
   isForNotAuthUser?: boolean,
-  children?: ReactNode,
-  // isAuth?:boolean
+  children?: ReactNode
 }
 
 export type TModal = {

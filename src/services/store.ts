@@ -23,8 +23,6 @@ import {
 } from "./actions/orderHistoryActions";
 import {socketMiddleware} from "./middleware/socketMiddleware";
 
-
-
 const wsActionsFeed = {
   wsConnect: wsConnectFeed,
   wsDisconnect: wsDisconnectFeed,

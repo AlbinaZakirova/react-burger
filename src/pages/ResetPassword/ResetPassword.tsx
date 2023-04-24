@@ -1,10 +1,9 @@
+import { ChangeEvent, useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 import style from './ResetPassword.module.css';
-import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, useState, FormEvent } from 'react';
 import { recoveryPassword } from '../../utils/api';
-
 
 const ResetPassword = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import {useMemo, FC} from "react";
 import { useDrag } from "react-dnd/dist/hooks";
+import { Link, useLocation } from "react-router-dom";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './BurgerIngredient.module.css'
-import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../utils/hooks";
 import { TBurgerIngredient } from "../../utils/types/types";
 
@@ -30,7 +30,6 @@ const BurgerIngredient: FC <TBurgerIngredient>  = ({ingredient, onClick}) => {
       className={style.ingredient__wrap} 
       onClick={onClick} 
       ref={drag}>
-
     <
       img className={style.ingredient__image} 
       src={ingredient.image} 

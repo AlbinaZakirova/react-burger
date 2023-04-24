@@ -2,44 +2,44 @@ import { createReducer } from '@reduxjs/toolkit'
 import { wsCloseOrder, wsConnectingOrder, wsErrorOrder, wsMessageOrder, wsOpenOrder } from '../actions/orderHistoryActions';
 
 type TOrder = {
-    _id: string,
-    ingredients: string[],
-    status: string,
-    name: string,
-    createdAt: Date,
-    updatedAt: Date,
-    number: number
+  _id: string,
+  ingredients: string[],
+  status: string,
+  name: string,
+  createdAt: Date,
+  updatedAt: Date,
+  number: number
 }
 
 export type TOrderList = {
-    success: boolean,
-    orders: TOrder[],
-    total: number,
-    totalToday: number
+  success: boolean,
+  orders: TOrder[],
+  total: number,
+  totalToday: number
 }
 
 type TOrderState = {
-    data: TOrderList | null
+  data: TOrderList | null
 }
 
 const initialState: TOrderState = {
-    data: null
+  data: null
 }
 
 export const orderHistoryReducer = createReducer(initialState, (builder) => {
-    builder
-        .addCase(wsConnectingOrder, (state) => {
-        })
-        .addCase(wsOpenOrder, (state) => {
-            console.log('OPEN WEBSOCKET');
-        })
-        .addCase(wsCloseOrder, (state) => {
-            console.log('CLOSE WEBSOCKET');
-        })
-        .addCase(wsErrorOrder, (state, action) => {
-            console.log('error')
-        })
-        .addCase(wsMessageOrder, (state, action) => {
-            state.data = action.payload
-        })
+  builder
+    .addCase(wsConnectingOrder, (state) => {
+    })
+    .addCase(wsOpenOrder, (state) => {
+      console.log('OPEN WEBSOCKET');
+    })
+    .addCase(wsCloseOrder, (state) => {
+      console.log('CLOSE WEBSOCKET');
+    })
+    .addCase(wsErrorOrder, (state, action) => {
+      console.log('error')
+    })
+    .addCase(wsMessageOrder, (state, action) => {
+      state.data = action.payload
+    })
 })

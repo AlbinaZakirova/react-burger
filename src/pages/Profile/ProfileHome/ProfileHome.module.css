@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  padding-top: 100px;
 }
 
 .choose {
@@ -14,4 +15,4 @@
 .profile__block {
   display: flex;
   flex-direction: column;
-} 
+}  

@@ -1,4 +1,3 @@
-
 import { Navigate, useLocation} from "react-router-dom";
 import NotFound from "../../pages/NotFound/NotFound";
 import {checkAuthorization} from "../../services/reducers/user";

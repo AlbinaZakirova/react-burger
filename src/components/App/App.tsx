@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import AppHeader from "../AppHeader/AppHeader";
 import style from './App.module.css';
 import {fetchIngredients} from '../../services/reducers/ingredients';
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Registration from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
@@ -14,13 +14,11 @@ import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/hooks';
-// import FeedPage from '../../pages/FeedPage/FeedPage';
-// import OrderModal from '../OrderModal/OrderModal';
-// import OrdersHistory from '../../pages/OrdersHistory/OrdersHistory';
 import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
 import { wsConnectOrder, wsDisconnectOrder } from '../../services/actions/orderHistoryActions';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import OrderModal from '../OrderModal/OrderModal';
+import FeedPage from '../../pages/FeedPage/FeedPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -57,8 +55,8 @@ export const App = () => {
         <Route path='/profile/orders' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
-        {/* <Route path='feed/:id' element={<OrderModal />} /> */}
-        {/* <Route path="/feed" element={<FeedPage />} /> */}
+        <Route path='feed/:id' element={<OrderModal />}/>
+        <Route path="/feed" element={<FeedPage />} />
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>

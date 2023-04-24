@@ -12,11 +12,9 @@ export interface IUpdateUser {
   password?: number;
 }
 
-
 const checkResponse = (res:Response) => {
   return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err))
 }
-
 
 const API_URL = 'https://norma.nomoreparties.space/api';
 export const BURGER_API_WSS_ORDERS = `wss://norma.nomoreparties.space/orders`;
@@ -113,7 +111,6 @@ export const logoutUser = async (token: string) =>
     },
     body: JSON.stringify({token: token}),
   })
-
 
 export const getUser = async () =>
   await request('auth/user', {

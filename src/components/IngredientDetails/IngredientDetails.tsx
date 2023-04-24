@@ -1,8 +1,8 @@
-import classnames from 'classnames';
-import style from './IngredientDetails.module.css';
 import { useParams } from 'react-router-dom';
 import { FC } from 'react';
+import classnames from 'classnames';
 import { useAppSelector } from '../../utils/hooks';
+import style from './IngredientDetails.module.css';
 
 const IngredientDetails: FC = () => {
   const {idIngredient} = useParams();
