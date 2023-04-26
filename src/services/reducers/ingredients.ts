@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" 
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"  
 import { getIngredients } from "../../utils/api";
 import { TErrorResponse, TIngredientState, TIngredientType } from "../../utils/types/types";
 

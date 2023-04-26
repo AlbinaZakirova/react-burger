@@ -2,20 +2,21 @@ import  { useMemo } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
 import classnames from 'classnames';
-import style from './OrderModal.module.css'
+import style from './HistoryModalPage.module.css'
 import { useAppSelector } from '../../utils/hooks';
 import { dateFormat, dateWhen } from '../../utils/utils';
 
 function inNotUndefined<T>(item: T | undefined): item is T {
   return item !== undefined
 }
-const OrderModal = () => {
+const HistoryModalPage = () => {
   const ingredients = useAppSelector((state) => state.ingredientsStore.data);
-  const orders = useAppSelector((state) => state.feedStore?.data?.orders);
+  const orders = useAppSelector((state) => state.orderHistoryStore?.data?.orders);
   const { id } = useParams<{ id: string }>();
   const order = useMemo(() => {
     return orders?.find(order => order._id === id)
   }, [orders, id])
+  
 
   const orderIngredientsForImage = ingredients.filter((ingredient) => order?.ingredients.includes(ingredient._id))
 
@@ -70,4 +71,4 @@ const OrderModal = () => {
   )
 };
 
-export default OrderModal;
+export default HistoryModalPage;

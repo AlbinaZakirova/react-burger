@@ -14,11 +14,9 @@ import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
 import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/hooks';
-import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
-import { wsConnectOrder, wsDisconnectOrder } from '../../services/actions/orderHistoryActions';
-import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
-import OrderModal from '../OrderModal/OrderModal';
 import FeedPage from '../../pages/FeedPage/FeedPage';
+import FeedModalPage from '../../pages/FeedModalPage/FeedModalPage';
+import HistoryModalPage from '../../pages/HistoryModalPage/HistoryModalPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -34,15 +32,6 @@ export const App = () => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
-    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
-    return () => {
-      dispatch(wsDisconnectFeed())
-      dispatch(wsDisconnectOrder())
-    }
-  }, []);
-
   return (
     <div className={style.app}>
       <AppHeader />
@@ -51,11 +40,11 @@ export const App = () => {
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
-        <Route path='/profile/orders/:id' element={<ProtectedRoute><OrderModal /></ProtectedRoute>} />
+        <Route path='/profile/orders/:id' element={<ProtectedRoute><HistoryModalPage /></ProtectedRoute>} />
         <Route path='/profile/orders' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
         <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
-        <Route path='feed/:id' element={<OrderModal />}/>
+        <Route path='feed/:id' element={<FeedModalPage />}/>
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
@@ -74,7 +63,7 @@ export const App = () => {
             path='feed/:id' 
             element={
               <Modal onClose={handleCloseModal}>
-                <OrderModal />
+                <FeedModalPage />
              </Modal>
             } 
           />
@@ -82,7 +71,7 @@ export const App = () => {
             path='profile/orders/:id' 
             element={
              <Modal onClose={handleCloseModal}>
-                <OrderModal />
+                <HistoryModalPage />
               </Modal>
             } 
           />

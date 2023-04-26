@@ -1,12 +1,25 @@
 import classnames from 'classnames';
 import style from './OrdersHistory.module.css'
-import { useAppSelector } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import OrderTemplate from '../../../components/OrderTemplate/OrderTemplate';
 import { TOrder } from '../../../services/reducers/feed';
+import { useEffect } from 'react';
+import { wsConnectOrder, wsDisconnectOrder } from '../../../services/actions/orderHistoryActions';
+import { BURGER_API_WSS_ORDERS } from '../../../utils/api';
+
 
 const OrdersHistory = () => {
     
   const orders = useAppSelector(state => state.orderHistoryStore?.data?.orders)
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+    return () => {
+      dispatch(wsDisconnectOrder())
+    }
+  }, []);
     
   return (
     <section className={style.orders}>
