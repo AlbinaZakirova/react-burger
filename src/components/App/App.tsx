@@ -16,7 +16,6 @@ import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/hooks';
 import FeedPage from '../../pages/FeedPage/FeedPage';
 import FeedModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
-import HistoryModalPage from '../../pages/HistoryModalPage/HistoryModalPage';
 import OrdersModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
 
 export const App = () => {
