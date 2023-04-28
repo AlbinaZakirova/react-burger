@@ -1,10 +1,10 @@
 import { Dispatch, ReactNode, ReactElement } from "react"
+import { TOrder } from "../../services/reducers/feed";
 
 export type TDataUser = {
   email?: string;
   name?: string;
   password?: string;
-  
 }
 
 export type TUserState = {
@@ -43,8 +43,7 @@ export type TBurgerIngredient = {
 
 export type TProtectedRoute = {
   isForNotAuthUser?: boolean,
-  children?: ReactNode,
-  // isAuth?:boolean
+  children?: ReactNode
 }
 
 export type TModal = {
@@ -77,3 +76,18 @@ export type TErrorResponse = {
   statusCode?: number;
 }
 
+export type wsPayloadConnect = {
+  wsUrl: string;
+  withTokenRefresh: boolean
+}
+
+export type TOptionsDate = {
+  timezone: 'Moscow',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZoneName: "short",
+}
+
+export type TOrderTemplate = {
+  order: TOrder;
+}

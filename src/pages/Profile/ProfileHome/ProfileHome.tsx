@@ -1,24 +1,20 @@
+import { ChangeEvent, useState, SyntheticEvent, FC, useEffect } from "react";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ProfileHome.module.css";
-import { ChangeEvent, useState, SyntheticEvent, FC } from "react";
-import { useEffect } from 'react';
 import { updateUserData } from "../../../services/reducers/user";
-import { useAppDispatch, useAppSelector } from "../../../utils/types/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 
 
 const ProfileHome: FC = () => {
 
   const dispatch = useAppDispatch();
-  
   const {user, isUserDataGot} = useAppSelector(state => state.userStore)
-
   const [isButtonsShow, setIsButtonsShow] = useState(false)
 
   const changeTracking = () => {
     const isChanged = JSON.stringify(user) === JSON.stringify(userData)
     setIsButtonsShow(!isChanged);
   }
-
 
   const [userData, setUserData] = useState({
     email: user?.email,
@@ -69,7 +65,7 @@ const ProfileHome: FC = () => {
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e)} 
           value={userData?.email || ''}
           name={'email'}
           isIcon={false}

@@ -1,15 +1,15 @@
 import {useState, useMemo} from 'react';
 import {useDrop} from 'react-dnd/dist/hooks/useDrop';
-import classnames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 import { Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import classnames from 'classnames';
 import style from './BurgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
 import {addConstructor, clearConstructor} from "../../services/reducers/constructor";
 import {sendOrder} from '../../services/reducers/order';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../utils/types/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 const BurgerConstructor = () => {
   const urlImageLoader = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'

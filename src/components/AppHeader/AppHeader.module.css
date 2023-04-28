@@ -8,7 +8,7 @@
 .nav {
   display: flex;
   align-items: center;
-  max-width: 1280px;
+  max-width: 1280px; 
   margin: 0 auto;
 }
 
@@ -16,7 +16,7 @@
   flex: 1;
 }
 
-.link__column {
+.link__column { 
   display: flex;
   gap: 8px;
 }
@@ -51,4 +51,8 @@
   align-items: center;
   justify-content: center;
   gap: 11px;
+}
+
+.active {
+  color: white;
 }

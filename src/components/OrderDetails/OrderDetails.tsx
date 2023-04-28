@@ -1,6 +1,6 @@
+import { FC } from 'react';
 import classnames from 'classnames';
 import style from './OrderDetails.module.css';
-import { FC } from 'react';
 
 interface IOrderDetails {
   number: number;
@@ -21,6 +21,5 @@ const OrderDetails: FC <IOrderDetails> = ({number}) => {
     </div>
   );
 };
-
 
 export default OrderDetails;

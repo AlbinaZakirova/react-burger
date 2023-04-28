@@ -8,7 +8,6 @@ import {
   updateToken,
   updateUser
 } from "../../utils/api";
-
 import {deleteItemByKey, getItemByKey, setItemByKey} from "../../utils/localStorage";
 import { TUserState } from "../../utils/types/types";
 
@@ -45,7 +44,6 @@ const initialState : TUserState = {
   isUserDataUpdated: null,
   isUserForgotPassword: null
 }
-
 
 export const forgotPassword = createAsyncThunk(
   `${sliceName}/forgotPassword`,
@@ -86,7 +84,6 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
-
 
 export const signInUser = createAsyncThunk(
   `${sliceName}/loginUser`,
@@ -194,7 +191,6 @@ export const updateUserData = createAsyncThunk(
     }
   }
 )
-
 
 export const userSlice = createSlice({
   name: sliceName,

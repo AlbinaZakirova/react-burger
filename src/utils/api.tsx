@@ -12,13 +12,13 @@ export interface IUpdateUser {
   password?: number;
 }
 
-
 const checkResponse = (res:Response) => {
   return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err))
 }
 
-
 const API_URL = 'https://norma.nomoreparties.space/api';
+export const BURGER_API_WSS_ORDERS = `wss://norma.nomoreparties.space/orders`;
+export const BURGER_API_WSS_FEED = "wss://norma.nomoreparties.space/orders/all";
 
 type TRequestProps = (
   endpoint: string,
@@ -40,7 +40,10 @@ export const getIngredients = async () =>
 export const makeOrder = async (ingredientIds:any) =>
   await request('orders', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: getItemByKey('accessToken')
+    },
     body: JSON.stringify({
       ingredients: ingredientIds
     })
@@ -108,7 +111,6 @@ export const logoutUser = async (token: string) =>
     },
     body: JSON.stringify({token: token}),
   })
-
 
 export const getUser = async () =>
   await request('auth/user', {

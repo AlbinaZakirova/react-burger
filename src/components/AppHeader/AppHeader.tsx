@@ -1,8 +1,8 @@
+import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { ListIcon, BurgerIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons"; 
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './AppHeader.module.css';
-import { NavLink } from 'react-router-dom';
 
 const AppHeader = () => {
   return (
@@ -13,12 +13,12 @@ const AppHeader = () => {
             <BurgerIcon type="primary" />
               <span className='text text_type_main-default ml-2'>Конструктор</span>
           </NavLink>
-          <NavLink to="profile/order" className={classnames(style.link)}>
+          <NavLink to="feed" className={classnames(style.link)}>
             <ListIcon type="secondary" />
               <span className='text text_type_main-default text_color_inactive ml-2'>Лента заказов</span>
           </NavLink>
         </div>
-        <div className={classnames(style.header__column, style.logo)}>
+        <div className={classnames(style.header__column, style.logo)}> 
           <Logo />
         </div>
         <NavLink
