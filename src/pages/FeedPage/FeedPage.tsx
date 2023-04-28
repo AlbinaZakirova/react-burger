@@ -11,7 +11,7 @@ const FeedPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: true }))
+    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
     return () => {
       dispatch(wsDisconnectFeed())
     }
@@ -25,4 +25,4 @@ const FeedPage = () => {
   );
 };
 
-export default FeedPage; 
+export default FeedPage;  

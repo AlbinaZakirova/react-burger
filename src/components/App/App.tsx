@@ -15,10 +15,9 @@ import NotFound from "../../pages/NotFound/NotFound";
 import MainPage from '../../pages/MainPage/MainPage';
 import { useAppDispatch } from '../../utils/hooks';
 import FeedPage from '../../pages/FeedPage/FeedPage';
-import FeedModalPage from '../../pages/FeedModalPage/FeedModalPage';
+import FeedModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
 import HistoryModalPage from '../../pages/HistoryModalPage/HistoryModalPage';
-import IngredientsIdPage from '../../pages/IngredientsIdPage/IngredientsIdPage';
-import OrderTemplate from '../OrderTemplate/OrderTemplate';
+import OrdersModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -42,11 +41,11 @@ export const App = () => {
         <Route path="/register" element={<ProtectedRoute isForNotAuthUser> <Registration/> </ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ProtectedRoute isForNotAuthUser> <ForgotPassword/> </ProtectedRoute>}/>
         <Route path="/reset-password" element={<ProtectedRoute isForNotAuthUser> <ResetPassword/> </ProtectedRoute>}/>
-        <Route path='/profile/orders/:id' element={<ProtectedRoute><HistoryModalPage /></ProtectedRoute>} />
+        <Route path='/profile/orders/:id' element={<ProtectedRoute><OrdersModalPage /></ProtectedRoute>} />
         <Route path='/profile/orders' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
-        <Route path="/ingredient/:idIngredient" element={<IngredientsIdPage/>}/>
-        <Route path='feed/:id' element={<FeedModalPage />}/>
+        <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
+        <Route path='/feed/:id' element={<FeedModalPage />}/>
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/" element={<MainPage/>}/>
         <Route path="*" element={<NotFound/>}/>
@@ -65,7 +64,7 @@ export const App = () => {
             path='feed/:id' 
             element={
               <Modal onClose={handleCloseModal}>
-                <FeedModalPage />
+                <OrdersModalPage />
              </Modal>
             } 
           />
@@ -73,7 +72,7 @@ export const App = () => {
             path='profile/orders/:id' 
             element={
               <Modal onClose={handleCloseModal}>
-                <HistoryModalPage />
+                <OrdersModalPage />
               </Modal>
             } 
           />

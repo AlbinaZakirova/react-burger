@@ -1,20 +1,38 @@
-import  { useMemo } from 'react';
+import  { useMemo, useEffect } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import classnames from 'classnames';
-import style from './FeedModalPage.module.css'
-import { useAppSelector } from '../../utils/hooks';
-import { dateFormat, dateWhen } from '../../utils/utils';
+import style from './OrdersModalPage.module.css'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { dateFormat, dateWhen } from '../../utils/utils'; 
+import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
+import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
+import { wsConnectOrder } from '../../services/actions/orderHistoryActions';
 
 function inNotUndefined<T>(item: T | undefined): item is T {
   return item !== undefined
 }
-const FeedModalPage = () => {
+const OrdersModalPage = () => {
+  
+
+  const location = useLocation();
+  const isCommonOrders = location.pathname.includes('feed')
   const ingredients = useAppSelector((state) => state.ingredientsStore.data);
-  const orders = useAppSelector((state) => state.feedStore?.data?.orders);
-  const { id } = useParams<{ id: string }>();
+  const orders = useAppSelector((state) => isCommonOrders ? state.feedStore?.data?.orders : state.orderHistoryStore?.data?.orders);
+
+  const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!orders) {
+            isCommonOrders
+                ? dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
+                : dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+        }
+    }, []);
+
+  const {id} = useParams<{ id: string }>();
   const order = useMemo(() => {
-    return orders?.find(order => order._id === id)
+      return orders?.find(order => order._id === id)
   }, [orders, id])
   
 
@@ -71,4 +89,4 @@ const FeedModalPage = () => {
   )
 };
 
-export default FeedModalPage;
+export default OrdersModalPage;
