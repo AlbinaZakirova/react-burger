@@ -5,8 +5,6 @@ import { TOrder } from '../../services/reducers/feed';
 import { useAppSelector } from '../../utils/hooks';
 
 const OrderFeed = () => {
-
-
   const orders = useAppSelector(state => state.feedStore?.data?.orders);
     return (
       <section className={style.orderFeed__container}>

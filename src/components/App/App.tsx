@@ -17,6 +17,8 @@ import { useAppDispatch } from '../../utils/hooks';
 import FeedPage from '../../pages/FeedPage/FeedPage';
 import FeedModalPage from '../../pages/FeedModalPage/FeedModalPage';
 import HistoryModalPage from '../../pages/HistoryModalPage/HistoryModalPage';
+import IngredientsIdPage from '../../pages/IngredientsIdPage/IngredientsIdPage';
+import OrderTemplate from '../OrderTemplate/OrderTemplate';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +45,7 @@ export const App = () => {
         <Route path='/profile/orders/:id' element={<ProtectedRoute><HistoryModalPage /></ProtectedRoute>} />
         <Route path='/profile/orders' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute ><Profile/></ProtectedRoute>}/>
-        <Route path="/ingredient/:idIngredient" element={<IngredientDetails/>}/>
+        <Route path="/ingredient/:idIngredient" element={<IngredientsIdPage/>}/>
         <Route path='feed/:id' element={<FeedModalPage />}/>
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/" element={<MainPage/>}/>
@@ -70,7 +72,7 @@ export const App = () => {
           <Route 
             path='profile/orders/:id' 
             element={
-             <Modal onClose={handleCloseModal}>
+              <Modal onClose={handleCloseModal}>
                 <HistoryModalPage />
               </Modal>
             } 
@@ -81,4 +83,3 @@ export const App = () => {
   );
 }   
  
-
