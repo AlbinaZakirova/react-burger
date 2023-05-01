@@ -10,7 +10,7 @@ const OrderDetails: FC <IOrderDetails> = ({number}) => {
   return (
     <div className={style.orderDetails}>
       <h2 className="text text_type_digits-large mt-30 mb-8">{number}</h2>
-      <h3 className="text text_type_main-medium">идентификатор заказа</h3>
+      <h3 id='orderNumber' className="text text_type_main-medium">идентификатор заказа</h3>
       <div className={classnames(style.done_image, 'mb-15')}></div>
       <p className="text text_type_main-small mb-2">
         Ваш заказ начали готовить

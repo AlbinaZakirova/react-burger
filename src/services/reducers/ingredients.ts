@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"  
 import { getIngredients } from "../../utils/api";
-import { TErrorResponse, TIngredientState, TIngredientType } from "../../utils/types/types";
+import { TErrorResponse, TIngredientState } from "../../utils/types/types";
 
-const initialState: TIngredientState = {
+export const initialState: TIngredientState = {
   data:[],
   isLoading: false,
   error: null
@@ -44,8 +44,8 @@ export const ingredientSlice = createSlice({
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
-      })
+      }) 
   },
 })
 
-export default ingredientSlice.reducer;
+export default ingredientSlice.reducer;    

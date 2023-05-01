@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {makeOrder} from "../../utils/api";
 import { TErrorResponse, TOrderState } from "../../utils/types/types";
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderData: null,
   isLoading: false,
   error: null
@@ -49,4 +49,4 @@ export const orderSlice = createSlice({
   }
 })
 
-export default orderSlice.reducer
+export default orderSlice.reducer  

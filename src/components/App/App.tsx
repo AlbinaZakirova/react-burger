@@ -18,6 +18,7 @@ import FeedPage from '../../pages/FeedPage/FeedPage';
 import FeedModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
 import OrdersModalPage from '../../pages/OrdersModalPage/OrdersModalPage';
 
+
 export const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();

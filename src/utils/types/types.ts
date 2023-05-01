@@ -56,7 +56,8 @@ export type TConstructorElementWrap = {
   removeIngredientBurger?: (uuid: string | undefined) => void,
   id?: string | undefined,
   index?: number,
-  isHover?: boolean
+  isHover?: boolean,
+  text?: string
 }
 
 export type TIngredientState = {
