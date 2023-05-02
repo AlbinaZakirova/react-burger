@@ -18,7 +18,7 @@ export type TUser = {
       email?: string,
       password?: string,
   }
-}
+} 
 
 export const sliceName = 'user' 
 
@@ -33,7 +33,7 @@ export interface IErrorResponse {
   statusCode?: number;
 }
 
-const initialState : TUserState = {
+export const initialState : TUserState = {
   user: {},
   isAuth: false,
   isLogin: null,
@@ -42,7 +42,7 @@ const initialState : TUserState = {
   isTokenUpdated: null,
   isUserDataGot: null,
   isUserDataUpdated: null,
-  isUserForgotPassword: null
+  isUserForgotPassword: null 
 }
 
 export const forgotPassword = createAsyncThunk(
@@ -214,11 +214,11 @@ export const userSlice = createSlice({
       })
       .addCase(exitUser.fulfilled, (state, action) => {
         state.user = {};
-        state.isExited = action.payload.success;
+        state.isExited = action.payload.success; 
         state.isAuth = false;
       })
       .addCase(updateAccessToken.fulfilled, (state, action) => {
-        setItemByKey('refreshToken', action.payload.refreshToken)
+        setItemByKey('refreshToken', action.payload.refreshToken) 
         setItemByKey('accessToken', action.payload.accessToken)
         state.isTokenUpdated = action.payload.success;
       })
@@ -231,13 +231,13 @@ export const userSlice = createSlice({
         state.isUserDataUpdated = action.payload.success;
       })
       .addCase(forgotPassword.fulfilled, (state, action) => {
-        state.isUserForgotPassword = action.payload.success;
+        state.isUserForgotPassword = action.payload.success; 
       })
   }
 })
 
 export const {checkAuthorization} = userSlice.actions
 
-export default userSlice.reducer;
+export default userSlice.reducer;  
 
  

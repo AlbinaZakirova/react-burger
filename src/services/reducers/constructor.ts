@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface IIngredient {
   _id?: string;
-  id: string;
+  id?: string;
   name: string;
   type: string;
   image: string;
@@ -21,14 +21,15 @@ interface IBun {
   uuid?: string;
 }
 
+
 interface IState {
-  bun: IBun | undefined | null;
+  bun: IBun | undefined | null | IIngredient;
   ingredients: IIngredient[];
 }
 
 
 
-const initialState:IState = {
+export const initialState:IState = {
   bun: null,
   ingredients: [],
 }
@@ -57,7 +58,7 @@ export const constructorSlice = createSlice({
 
 
     moveElement: (state, action) => {
-      let res = [...state.ingredients]
+      let res: IIngredient[] = [...state.ingredients]
       let start = action.payload[0]
       let end = action.payload[1]
       if (start === end) {
@@ -86,4 +87,4 @@ export const constructorSlice = createSlice({
 })
 
 export const { addConstructor, removeConstructor, clearConstructor, moveElement } = constructorSlice.actions;
-export default constructorSlice.reducer;
+export default constructorSlice.reducer;   

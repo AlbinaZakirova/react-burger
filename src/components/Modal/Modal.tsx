@@ -24,7 +24,7 @@ const Modal: FC <TModal> = ({ onClose, children }) => {
   return createPortal(
     <>
       <div className={style.modal}>
-        <div className={style.modal__close_icon} onClick={onClose}>
+        <div className={style.modal__close_icon} onClick={onClose} aria-label='Закрыть модальное окно'>
           <CloseIcon type='primary'/>
         </div>
         {children}

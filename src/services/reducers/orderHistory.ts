@@ -22,7 +22,7 @@ type TOrderState = {
   data: TOrderList | null
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   data: null
 }
 
@@ -43,3 +43,4 @@ export const orderHistoryReducer = createReducer(initialState, (builder) => {
       state.data = action.payload
     })
 })
+ 

@@ -38,8 +38,9 @@ export const feedReducer = createReducer(initialState, (builder) => {
       console.log('CLOSE WEBSOCKET');
     })
     .addCase(wsErrorFeed, (state, action) => {
+      console.log('error');
     })
     .addCase(wsMessageFeed, (state, action) => {
       state.data = action.payload
     })
-})
+})   

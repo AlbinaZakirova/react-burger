@@ -55,7 +55,7 @@ const BurgerConstructor = () => {
     collect: monitor => ({
       isHover: monitor.isOver()
     })
-  })
+  }) 
 
   return (
     <section className={classnames(style.section, 'mt-25')} ref={dropTarget}>
@@ -77,12 +77,13 @@ const BurgerConstructor = () => {
             price={0}
           />}
       </div>
-      <div className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
+      <div id='noBun' className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
         {ingredients.map((data: any, index: number) =>
           <ConstructorElementWrap
             key={data.uuid}
             ingredient={data}
             index={index}
+            text={'Выберите начинку'}
           />
         )}
       </div>
