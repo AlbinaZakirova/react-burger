@@ -11,10 +11,11 @@
 .nutrition {
   display: flex;
   flex-direction: row;
-  width: 520px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 5px;
   text-align: center;
-  margin: 0 auto;
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
 }
 
 .nutrition_elements {
@@ -22,10 +23,9 @@
   flex-direction: column;
   list-style: none;
   padding: 0;
-  width: 115px;
 }
 
-.ingedientDetails__title {
+.ingredientDetails__title {
   margin: 40px 40px 0 ;
   text-align: center;
 }

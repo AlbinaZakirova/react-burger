@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import style from './OrdersModalPage.module.css'
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { dateFormat, dateWhen } from '../../utils/utils'; 
-import { wsConnectFeed, wsDisconnectFeed } from '../../services/actions/feedActions';
+import { wsConnectFeed } from '../../services/actions/feedActions';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import { wsConnectOrder } from '../../services/actions/orderHistoryActions';
 
@@ -67,7 +67,6 @@ const OrdersModalPage = () => {
               <li className={style.order__item} key={item._id}>
                 <div className={style.image_container}>
                   <img className={style.order__image} src={item.image_mobile} alt={item.name} />
-                  <p className={classnames(style.order__text, 'text_type_main-default')}>{item.name}</p>
                   <p className={classnames(style.order__text, 'text_type_main-default')}>{item.name}</p>
                 </div>
                 <p className={classnames(style.order__price, 'text text_type_digits-default')}>

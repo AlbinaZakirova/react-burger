@@ -1,13 +1,11 @@
 .orderFeed__container {
   display: flex;
   flex-direction: column;
-  width: 584px;
   padding-top: 40px;
   margin: 0 auto;
 }
 
 .orderFeed__all {
-  
   display: flex;
   flex-direction: column;
   width: 584px;
@@ -17,8 +15,4 @@
   padding: 0;
   max-height: 770px;
   overflow-y: auto;
-}
-
-.orderFeed__title {
-  max-width: 584px; 
 }

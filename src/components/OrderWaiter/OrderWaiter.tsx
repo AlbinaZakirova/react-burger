@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import style from './OrderWaiter.module.css'
-import { useAppSelector } from '../../utils/hooks';
+import {useAppSelector} from '../../utils/hooks';
 
 const OrderWaiter = () => {
     const data = useAppSelector(state => state.feedStore?.data)
@@ -12,17 +12,18 @@ const OrderWaiter = () => {
                 <div className={style.inProgress}>
                     <h3 className='text text_type_main-medium mb-6'>Готовы:</h3>
                     <ul className={style.inProgress_list}>
-                        {doneOrders?.map((order) => {
-                            return <li className={classnames(style.done, 'text text_type_digits-default')} key={order.number}>{order.number}</li>
-                        })}
+                        {doneOrders?.map((order) =>
+                            <li className={classnames(style.done, 'text text_type_digits-default')}
+                                key={order.number}>{order.number}</li>
+                        )}
                     </ul>
                 </div>
                 <div className={style.inProgress}>
                     <h3 className='text text_type_main-medium mb-6'>В работе:</h3>
                     <ul className={style.inProgress_list}>
-                        {pendingOrders?.map((order) => {
-                            return <li className={`text text_type_digits-default`} key={order.number}>{order.number}</li>
-                        })}
+                        {pendingOrders?.map((order) =>
+                            <li className={`text text_type_digits-default`} key={order.number}>{order.number}</li>
+                        )}
                     </ul>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, ReactElement } from "react"
+import { ReactNode, ReactElement } from "react"
 import { TOrder } from "../../services/reducers/feed";
 
 export type TDataUser = {
@@ -49,6 +49,12 @@ export type TProtectedRoute = {
 export type TModal = {
   onClose: () => void,
   children: ReactElement
+}
+
+export type TNavLinkHeader = {
+  icon: string,
+  text: string,
+  to: string
 }
 
 export type TConstructorElementWrap = {

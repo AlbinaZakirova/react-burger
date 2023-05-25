@@ -1,0 +1,14 @@
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.link__text {
+  color: var(--text-inactive-color);
+  transition: color .3s ease;
+}
+
+.link__text_active {
+  color: white;
+}

@@ -11,7 +11,6 @@ import { BURGER_API_WSS_ORDERS } from '../../../utils/api';
 const OrdersHistory = () => {
     
   const orders = useAppSelector(state => state.orderHistoryStore?.data?.orders)
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

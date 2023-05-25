@@ -5,6 +5,20 @@ import classnames from 'classnames';
 import style from './Login.module.css';
 import { signInUser } from '../../services/reducers/user';
 import { useAppDispatch } from '../../utils/hooks';
+import {v4 as uuidv4} from "uuid";
+
+const pagesArray = [
+  {
+    label: 'Вы — новый пользователь?',
+    to: '/register',
+    linkLabel: 'Зарегистрироваться'
+  },
+  {
+    label: 'Забыли пароль?',
+    to: '/forgot-password',
+    linkLabel: 'Восстановить пароль'
+  }
+]
 
 const Login = () => {
   
@@ -58,15 +72,13 @@ const Login = () => {
           </div>
         </div>
 
-        <div className={style.login_signupContainer}>
-          <span className="text text_type_main-default text_color_inactive">Вы — новый пользователь?</span>
-          <Link to="/register" className={classnames(style.login__link, "text text_type_main-default")}>Зарегистрироваться</Link>
-        </div>
+        {pagesArray.map(({label, to, linkLabel}) =>
+            <div className={style.login_signupContainer} key={uuidv4()}>
+              <span className="text text_type_main-default text_color_inactive">{label}</span>
+              <Link to={to} className={classnames(style.login__link, "text text_type_main-default")}>{linkLabel}</Link>
+            </div>
+        )}
 
-        <div className={style.login_signupContainer}>
-          <span className="text text_type_main-default text_color_inactive">Забыли пароль?</span>
-          <Link to="/forgot-password" className={classnames(style.login__link, "text text_type_main-default")}>Восстановить пароль</Link>
-        </div>
       </form>
     </div>
   )

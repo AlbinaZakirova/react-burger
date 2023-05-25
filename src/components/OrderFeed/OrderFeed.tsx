@@ -8,7 +8,7 @@ const OrderFeed = () => {
   const orders = useAppSelector(state => state.feedStore?.data?.orders);
     return (
       <section className={style.orderFeed__container}>
-        <h2 className={classnames(style.orderFeed__title, 'text text_type_main-large mb-5')}>Лента заказов</h2>
+        <h2 className={'text text_type_main-large mb-5'}>Лента заказов</h2>
         <ul className={classnames(style.orderFeed__all, 'custom-scroll')}>
           {orders?.map((order: TOrder) => {
             return <OrderTemplate order={order} key={order?._id} />

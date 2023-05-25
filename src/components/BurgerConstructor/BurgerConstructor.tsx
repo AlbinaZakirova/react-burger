@@ -57,25 +57,28 @@ const BurgerConstructor = () => {
     })
   }) 
 
+  const bunsElement = (isTop: boolean) =>
+      bun
+          ? <ConstructorElement
+              {...bun}
+              type={isTop ? 'top' : 'bottom'}
+              thumbnail={bun?.image}
+              text={`${bun ? bun.name : ''} (${isTop ? 'верх' : 'низ'})`}
+              price={bun?.price}
+              isLocked={true}
+          />
+          : <ConstructorElement
+              type={isTop ? 'top' : 'bottom'}
+              thumbnail={urlImageLoader}
+              text={'Выберите булку'}
+              isLocked={true}
+              price={0}
+          />
+
   return (
     <section className={classnames(style.section, 'mt-25')} ref={dropTarget}>
       <div className={style.buns}>
-        {bun
-          ? <ConstructorElement
-            {...bun}
-            type='top'
-            thumbnail={bun?.image}
-            text={`${bun ? bun.name : ''} (верх)`}
-            price={bun?.price}
-            isLocked={true}
-          />
-          : <ConstructorElement
-            type='top'
-            thumbnail={urlImageLoader}
-            text={'Выберите булку'}
-            isLocked={true}
-            price={0}
-          />}
+        {bunsElement(true)}
       </div>
       <div id='noBun' className={classnames(style.no_buns_ingredients, 'custom-scroll')}>
         {ingredients.map((data: any, index: number) =>
@@ -88,22 +91,7 @@ const BurgerConstructor = () => {
         )}
       </div>
       <div className={style.buns}>
-        {bun
-          ? <ConstructorElement
-          {...bun}
-          type='bottom'
-          thumbnail={bun?.image}
-          text={`${bun ? bun.name : ''} (низ)`}
-          price={bun?.price}
-          isLocked={true}
-        />
-        : <ConstructorElement
-            type='bottom'
-            thumbnail={urlImageLoader}
-            text={'Выберите булку'}
-            isLocked={true}
-            price={0}
-          />}
+        {bunsElement(false)}
       </div>
       <div className={style.counter_final}>
         <div className={style.sum_and_icon_block}>

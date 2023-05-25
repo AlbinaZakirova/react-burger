@@ -8,28 +8,14 @@
 .nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   max-width: 1280px; 
   margin: 0 auto;
-}
-
-.header__column {
-  flex: 1;
 }
 
 .link__column { 
   display: flex;
   gap: 8px;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  color: var(--text-inactive-color);
-  text-decoration: none;
-}
-
-.link_active {
-  color: var(--text-primary-color);
 }
 
 .logo {
@@ -41,17 +27,6 @@
   display: flex;
   justify-content: flex-end;
 } 
-
-.header__link {
-  text-decoration: none;
-} 
-
-.header__linkProfile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 11px;
-}
 
 .active {
   color: white;
